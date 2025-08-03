@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DoctorFinder | Book Your Doctor</title>  
+  <link rel="icon" type="image/png" href="stethoscope.png">
+  <link rel="shortcut icon" type="image/png" href="stethoscope.png">
+  <link rel="icon" href="data:,">
+  <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">DoctorFinder</div>
+    <ul class="nav-links">
+      <li><a href="#">Home</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#contact">Contact Us</a></li>
+      <li><a href="#help">Help</a></li>
+      <li><a href="#signup">Sign Up</a></li>
+      <li><a href="#login">Login</a></li>
+    </ul>
+  </nav>
+
+
+   
+  <header class="search-header">
+  <div class="header-content">
+    <img class="header-img" src="doscy.png" alt="Doctor Header Image">
+    <div class="header-text">
+      <h1>Find the Right Doctor for You</h1>
+      <input type="text" id="searchByName" placeholder="Search by Doctor Name" oninput="filterDoctors()">
+      <input type="text" id="searchBySpecialization" placeholder="Search by Specialization" oninput="filterDoctors()">
+    </div>
+  </div>
+</header>
+
+
+  <section class="about-section">
+    <h2>About Our Hospital</h2>
+    <p>We provide world-class medical facilities with experienced doctors and advanced equipment. Our mission is to ensure excellent patient care and well-being for everyone.</p>
+  </section>
+
+  <section class="services-section" id="services">
+    <h2>Our Medical Services</h2>
+    <ul>
+      <li>👨‍⚕ Outpatient Consultation</li>
+      <li>🩻 Diagnostics & Lab Tests</li>
+      <li>🚨 24/7 Emergency Services</li>
+      <li>💉 Vaccination & Immunization</li>
+      <li>🛏 Inpatient Care & Surgery</li>
+      <li>👶 Pediatrics & Maternity</li>
+      <li>🧠 Mental Health & Counseling</li>
+    </ul>
+  </section>
+
+  <section class="doctor-list">
+    <div class="doctor-card">
+      <img src="female_doctor.jpg" alt="Dr. Neha Singh">
+      <div class="doctor-info">
+        <h2 class="toggle-doctor">Dr. Neha Singh</h2>
+        <p>Neurologist</p>
+        <div class="details">
+          <p><strong>Experience:</strong> 10 years</p>
+          <p><strong>Contact:</strong> 9876543210</p>
+          <p><strong>Email:</strong> neha@example.com</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="doctor-card">
+      <img src="female_dr2.jpg" alt="Dr. Priya Sharma">
+      <div class="doctor-info">
+        <h2 class="toggle-doctor">Dr. Priya Sharma</h2>
+        <p>Cardiologist</p>
+        <div class="details">
+          <p><strong>Experience:</strong> 12 years</p>
+          <p><strong>Contact:</strong> 9123456780</p>
+          <p><strong>Email:</strong> priya@example.com</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="doctor-card">
+  <img src="malr_dr4.avif" alt="Dr. Rahul Kumar">
+  <div class="doctor-info">
+    <h2 class="toggle-doctor">Dr. Rahul Kumar</h2>
+    <p>Orthopedic Surgeon</p>
+    <div class="details">
+      <p><strong>Experience:</strong> 15 years</p>
+      <p><strong>Contact:</strong> 9001234567</p>
+      <p><strong>Email:</strong> rahul@example.com</p>
+    </div>
+  </div>
+</div>
+
+<div class="doctor-card">
+  <img src="male_dr3.jpg" alt="Dr. Aryan Mehta">
+  <div class="doctor-info">
+    <h2 class="toggle-doctor">Dr. Aryan Mehta</h2>
+    <p>Dentist</p>
+    <div class="details">
+      <p><strong>Experience:</strong> 8 years</p>
+      <p><strong>Contact:</strong> 9012345678</p>
+      <p><strong>Email:</strong> aryan@example.com</p>
+    </div>
+  </div>
+</div>
+
+  </section>
+
+  <section class="appointment-section" id="contact">
+    <h2>Book an Appointment</h2>
+    <form id="appointmentForm">
+      <input type="text" placeholder="Your Name" required>
+      <input type="email" placeholder="Your Email" required>
+      <input type="tel" placeholder="Contact Number" required>
+      <input type="text" placeholder="Preferred Doctor" required>
+      <input type="date" required>
+      <button type="submit">Book Appointment</button>
+    </form>
+  </section>
+
+  <footer>
+  <div class="footer-container">
+    <div class="footer-about">
+      <h3>DoctorFinder</h3>
+      <p>Your trusted partner in finding the best healthcare professionals tailored to your needs.</p>
+    </div>
+
+    <div class="footer-links">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#help">Help</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-contact">
+      <h4>Contact Info</h4>
+      <p>Email: support@doctorfinder.com</p>
+      <p>Phone: +91 98765 43210</p>
+      <p>Address: Bhopal, Madhya Pradesh, India</p>
+    </div>
+
+    <div class="footer-social">
+  <h4>Follow Us</h4>
+  <div class="social-icons">
+    <a href="#"><i class="fab fa-facebook-f"></i></a>
+    <a href="#"><i class="fab fa-twitter"></i></a>
+    <a href="#"><i class="fab fa-instagram"></i></a>
+  </div>
+</div>
+
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; 2025 DoctorFinder. All rights reserved. | <a href="#">Privacy Policy</a></p>
+  </div>
+</footer>
+
+
+  <script src="script.js"></script>
+</body>
+</html>
