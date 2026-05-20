@@ -9,7 +9,6 @@ This project helps users easily find doctors by specialization or name, explore 
 
 
 ✨ Features
-
 🔍 Search doctors by specialization or name
 📅 Online appointment booking system
 🏥 Hospital services and details section
@@ -23,13 +22,12 @@ JavaScript
 
 
 📚 What I Learned
-
 This project helped me improve my:
-
 Frontend web development skills
 UI/UX design understanding
 JavaScript functionality and DOM manipulation
 Problem-solving and project structuring
+
 
 🎯 Project Goal
 The goal of this project is to make doctor searching and appointment booking simple, fast, and accessible for users through a clean web interface.
@@ -45,9 +43,9 @@ Mobile app version
 
 👩‍💻 Developed By
 Sandhya Dhakad
-
 B.Tech CSE (AI & ML) Student
 Passionate about AI, ML & Web Development 🚀
+
 
 ⭐ Feedback
 Feedback and suggestions are always 
