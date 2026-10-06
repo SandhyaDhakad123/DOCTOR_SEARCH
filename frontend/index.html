@@ -1,0 +1,4037 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Discover verified and traceable doctor information by city and specialization.">
+  <title>DoctorFinder | Find care with clarity</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <link rel="stylesheet" href="upgrade.css">
+</head>
+
+<body>
+
+  <!-- ================= NAVBAR ================= -->
+
+  <nav class="navbar" id="navbar" aria-label="Primary navigation">
+
+    <a class="logo" href="#top">
+      <span class="logo-mark">
+        <i class="fa-solid fa-plus"></i>
+      </span>
+      DoctorFinder
+    </a>
+
+    <button
+      class="menu-toggle"
+      type="button"
+      aria-expanded="false"
+      aria-controls="navLinks"
+      aria-label="Open navigation menu"
+    >
+      <i class="fa-solid fa-bars"></i>
+    </button>
+
+    <ul class="nav-links" id="navLinks">
+
+      <li>
+        <a href="#top">Home</a>
+      </li>
+
+      <li class="nav-public-item">
+        <a href="#how-it-works">How It Works</a>
+      </li>
+
+      <li class="nav-public-item">
+        <a href="#services">Services</a>
+      </li>
+
+      <li>
+        <a href="#health-wellness">Health &amp; Wellness</a>
+      </li>
+
+      <li class="nav-public-item">
+        <a href="#about">About</a>
+      </li>
+
+      <li class="nav-public-item">
+        <a href="#contact">Contact</a>
+      </li>
+
+      <li class="nav-auth-item" hidden>
+        <a href="#appDashboard" id="navDoctorSearch">Doctor Search</a>
+      </li>
+
+      <li class="nav-auth-item" hidden>
+        <a href="#appDashboard" id="navNearbyDoctors">Nearby Doctors</a>
+      </li>
+
+      <li class="nav-auth-item" hidden>
+        <a href="#" id="navAiDoctor"><i class="fa-solid fa-wand-magic-sparkles"></i> AI Specialist</a>
+      </li>
+
+      <li class="nav-auth-item" hidden>
+        <a href="#" id="navDashboard"><i class="fa-solid fa-gauge-high"></i> Dashboard</a>
+      </li>
+
+      <li class="nav-auth-item" hidden>
+        <a href="#" id="navSavedDoctors"><i class="fa-solid fa-heart"></i> Saved <span id="navSavedBadge" class="nav-badge-count">0</span></a>
+      </li>
+
+      <li class="nav-admin-item" id="adminNavItem" hidden>
+        <a href="#" id="navAdminPortal" class="nav-admin-link"><i class="fa-solid fa-shield-halved"></i> Admin Portal</a>
+      </li>
+
+      <li id="authNav">
+        <button class="nav-login" type="button" data-auth="login">
+          Login
+        </button>
+
+        <button class="nav-signup" type="button" data-auth="signup">
+          Sign Up
+        </button>
+      </li>
+
+    </ul>
+
+  </nav>
+
+
+  <!-- ================= MAIN ================= -->
+
+  <main id="top">
+
+    <!-- ================= HERO ================= -->
+
+    <!-- ================= PUBLIC HERO ================= -->
+
+    <header class="hero public-hero" id="landingHero">
+
+      <div class="hero-overlay"></div>
+
+      <div class="hero-inner">
+
+        <div class="hero-copy">
+
+          <p class="eyebrow light">
+            <i class="fa-solid fa-shield-heart"></i>
+            Verified Healthcare Directory
+          </p>
+
+          <h1>
+            Find the Right Doctor Near You
+          </h1>
+
+          <p class="hero-subtitle">
+            DoctorFinder helps you discover verified, traceable medical professionals by city, specialization, and real-time location. Log in or sign up to access the full doctor search application and request appointments.
+          </p>
+
+          <div class="hero-cta-group">
+
+            <button class="btn btn-primary" id="heroSearchBtn" type="button">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              Search Doctors Now
+            </button>
+
+            <a class="btn btn-nearby" href="#how-it-works">
+              <i class="fa-solid fa-circle-info"></i>
+              How It Works
+            </a>
+
+          </div>
+
+          <div class="hero-badges">
+            <span class="hero-badge"><i class="fa-solid fa-circle-check"></i> 100% Verified Registrations</span>
+            <span class="hero-badge"><i class="fa-solid fa-location-crosshairs"></i> GPS Geolocation Search</span>
+            <span class="hero-badge"><i class="fa-solid fa-calendar-check"></i> Direct Appointment Requests</span>
+          </div>
+
+        </div>
+
+      </div>
+
+    </header>
+
+
+    <!-- ================= FEATURES SECTION ================= -->
+
+    <section class="section features-section" id="features">
+
+      <div class="section-heading">
+
+        <p class="eyebrow">
+          PLATFORM CAPABILITIES
+        </p>
+
+        <h2>
+          Engineered for Confidence & Transparency
+        </h2>
+
+        <p class="section-intro">
+          Discover a complete ecosystem built to connect patients with real, verified medical specialists.
+        </p>
+
+      </div>
+
+      <div class="service-grid">
+
+        <article class="service-card">
+          <i class="fa-solid fa-user-check"></i>
+          <h3>Traceable Real Doctors</h3>
+          <p>Every doctor listing is backed by state and national medical council records. Zero fake listings or synthetic profiles.</p>
+        </article>
+
+        <article class="service-card">
+          <i class="fa-solid fa-location-crosshairs"></i>
+          <h3>GPS Proximity Search</h3>
+          <p>Pinpoint verified specialists near you within 5km, 10km, 25km, or 50km radius with exact distance calculation.</p>
+        </article>
+
+        <article class="service-card">
+          <i class="fa-solid fa-map-location-dot"></i>
+          <h3>Interactive Leaflet Maps</h3>
+          <p>Explore healthcare providers spatially on OpenStreetMap with interactive location pins and compact profile previews.</p>
+        </article>
+
+        <article class="service-card">
+          <i class="fa-solid fa-brain"></i>
+          <h3>AI Specialization Routing</h3>
+          <p>Powered by Google Gemini to analyze your non-emergency symptom descriptions and guide you to the right clinical specialty.</p>
+        </article>
+
+        <article class="service-card">
+          <i class="fa-regular fa-calendar-check"></i>
+          <h3>Appointment Management</h3>
+          <p>Request consultation dates and times, track upcoming visits, and review complete appointment history in one dashboard.</p>
+        </article>
+
+        <article class="service-card">
+          <i class="fa-solid fa-star-half-stroke"></i>
+          <h3>Genuine Patient Reviews</h3>
+          <p>Read authentic feedback from registered patients and leave honest reviews to help others in the community find care.</p>
+        </article>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= HOW IT WORKS ================= -->
+
+    <section class="section how-it-works-section" id="how-it-works">
+
+      <div class="section-heading">
+
+        <p class="eyebrow">
+          SIMPLE & SECURE PROCESS
+        </p>
+
+        <h2>
+          How DoctorFinder Works
+        </h2>
+
+        <p class="section-intro">
+          Four simple steps to find care with complete confidence and clarity.
+        </p>
+
+      </div>
+
+      <div class="how-grid">
+
+        <article class="how-card">
+          <div class="step-badge">1</div>
+          <i class="fa-solid fa-user-lock"></i>
+          <h3>Sign Up or Log In</h3>
+          <p>Create your free account or sign in to access doctor search, location tools, and appointment requests.</p>
+        </article>
+
+        <article class="how-card">
+          <div class="step-badge">2</div>
+          <i class="fa-solid fa-magnifying-glass-location"></i>
+          <h3>Search Location & Care</h3>
+          <p>Filter doctors by State, City, Specialization, or Doctor Name. Or use one-click GPS search for doctors near you.</p>
+        </article>
+
+        <article class="how-card">
+          <div class="step-badge">3</div>
+          <i class="fa-solid fa-id-card"></i>
+          <h3>Inspect Verified Data</h3>
+          <p>View registration numbers, medical councils, qualifications, clinic addresses, consultation fees, and source links.</p>
+        </article>
+
+        <article class="how-card">
+          <div class="step-badge">4</div>
+          <i class="fa-regular fa-calendar-check"></i>
+          <h3>Request Appointment</h3>
+          <p>Submit your preferred date and time for consultation directly to your selected healthcare professional.</p>
+        </article>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= PROTECTED DOCTOR SEARCH APP DASHBOARD ================= -->
+
+    <section class="app-dashboard-section" id="appDashboard" hidden>
+
+      <div class="app-dashboard-header">
+
+        <p class="eyebrow">
+          <i class="fa-solid fa-lock-open"></i>
+          AUTHENTICATED APPLICATION WORKSPACE
+        </p>
+
+        <h2>
+          Doctor Search & Discovery
+        </h2>
+
+        <p>
+          Search verified medical professionals across India or discover doctors near your current location.
+        </p>
+
+      </div>
+
+      <div class="app-search-wrapper">
+
+        <!-- SEARCH PANEL -->
+
+        <section class="search-panel" aria-label="Doctor search">
+
+          <div class="panel-heading">
+
+            <span class="panel-icon">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </span>
+
+            <div>
+              <h2>Find a doctor</h2>
+              <p>Search the available directory</p>
+            </div>
+
+          </div>
+
+          <div class="search-form">
+
+            <!-- STATE -->
+
+            <label class="field">
+
+              <span>
+                <i class="fa-solid fa-map-location-dot"></i>
+                State
+              </span>
+
+              <select id="searchByState" aria-describedby="stateHelp">
+                <option value="">Select State</option>
+              </select>
+
+              <small id="stateHelp" class="field-help">
+                Choose a state to see its cities.
+              </small>
+
+            </label>
+
+            <!-- CITY -->
+
+            <label class="field">
+
+              <span>
+                <i class="fa-solid fa-location-dot"></i>
+                City
+              </span>
+
+              <select id="searchByCity" disabled>
+                <option value="">Select State first</option>
+              </select>
+
+            </label>
+
+            <!-- SPECIALIZATION -->
+
+            <div class="field autocomplete-container">
+
+              <span>
+                <i class="fa-solid fa-stethoscope"></i>
+                Specialization
+                <em>(optional)</em>
+              </span>
+
+              <input id="searchBySpecialization" type="text" placeholder="e.g. Internal Medicine, Neurology..." autocomplete="off">
+              <ul id="specAutocomplete" class="autocomplete-dropdown" hidden></ul>
+
+            </div>
+
+            <!-- DOCTOR NAME -->
+
+            <div class="field autocomplete-container">
+
+              <span>
+                <i class="fa-solid fa-user-doctor"></i>
+                Doctor name
+                <em>(optional)</em>
+              </span>
+
+              <input id="searchByName" type="text" placeholder="e.g. Dr. Batni, Dr. Gupta..." autocomplete="off">
+              <ul id="nameAutocomplete" class="autocomplete-dropdown" hidden></ul>
+
+            </div>
+
+            <!-- HOSPITAL / CLINIC -->
+
+            <div class="field autocomplete-container">
+
+              <span>
+                <i class="fa-regular fa-hospital"></i>
+                Hospital / Clinic
+                <em>(optional)</em>
+              </span>
+
+              <input id="searchByHospital" type="text" placeholder="e.g. Apollo, Gandhi Medical College..." autocomplete="off">
+              <ul id="hospitalAutocomplete" class="autocomplete-dropdown" hidden></ul>
+
+            </div>
+
+            <!-- SEARCH BUTTONS -->
+
+            <div class="search-actions">
+
+              <button id="searchBtn" class="btn btn-primary" type="button">
+                <i class="fa-solid fa-arrow-right"></i>
+                Search doctors
+              </button>
+
+              <button id="findNearbyDoctorsBtn" class="btn btn-nearby" type="button">
+                <i class="fa-solid fa-location-crosshairs"></i>
+                Find Doctors Near Me
+              </button>
+
+            </div>
+
+          </div>
+
+          <!-- ADVANCED FILTERS PANEL -->
+
+          <div class="advanced-filters-panel" id="advancedFiltersPanel">
+
+            <div class="filter-group">
+              <label for="filterFee"><i class="fa-solid fa-indian-rupee-sign"></i> Consultation Fee</label>
+              <select id="filterFee">
+                <option value="">All Fees</option>
+                <option value="under500">Under ₹500</option>
+                <option value="500to1000">₹500 - ₹1,000</option>
+                <option value="1000to2000">₹1,000 - ₹2,000</option>
+                <option value="above1000">Above ₹1,000</option>
+                <option value="above2000">Above ₹2,000</option>
+              </select>
+            </div>
+
+            <div class="filter-group">
+              <label for="filterRadius"><i class="fa-solid fa-circle-dot"></i> Search Radius</label>
+              <select id="filterRadius">
+                <option value="5">5 km Radius</option>
+                <option value="10" selected>10 km Radius</option>
+                <option value="25">25 km Radius</option>
+                <option value="50">50 km Radius</option>
+              </select>
+            </div>
+
+            <div class="filter-group">
+              <label for="filterAvailability"><i class="fa-regular fa-calendar-days"></i> Availability</label>
+              <select id="filterAvailability">
+                <option value="">Any Availability</option>
+                <option value="today">Available Today</option>
+                <option value="this_week">Available This Week</option>
+              </select>
+            </div>
+
+            <div class="filter-group">
+              <label for="filterRating"><i class="fa-regular fa-star"></i> Minimum Rating</label>
+              <select id="filterRating">
+                <option value="">All Ratings</option>
+                <option value="4.5">4.5+ Stars</option>
+                <option value="4">4.0+ Stars</option>
+                <option value="3">3.0+ Stars</option>
+              </select>
+            </div>
+
+            <div class="filter-group">
+              <label for="sortBy"><i class="fa-solid fa-arrow-down-wide-short"></i> Sort By</label>
+              <select id="sortBy">
+                <option value="name_asc">Name (A to Z)</option>
+                <option value="name_z_a">Name (Z to A)</option>
+                <option value="nearest">Nearest First</option>
+                <option value="fee_asc">Lowest Fee</option>
+                <option value="fee_desc">Highest Fee</option>
+                <option value="rating_desc">Highest Rating</option>
+              </select>
+            </div>
+
+          </div>
+
+        </section>
+
+      </div>
+
+      <!-- RESULTS SECTION -->
+
+      <section class="results-section" id="doctor-results">
+
+        <div class="filter-actions-bar">
+
+          <div class="filter-chips-wrap" id="activeFilterChips">
+            <span id="activeFilterCount" class="filter-chip"><i class="fa-solid fa-sliders"></i> Default Filters</span>
+          </div>
+
+          <div class="view-mode-toggle" role="group" aria-label="View mode">
+            <button id="viewGridBtn" class="view-mode-btn active" type="button">
+              <i class="fa-solid fa-table-cells"></i> Cards Grid
+            </button>
+            <button id="viewMapBtn" class="view-mode-btn" type="button">
+              <i class="fa-solid fa-map-location-dot"></i> Interactive Map
+            </button>
+          </div>
+
+        </div>
+
+        <!-- LEAFLET MAP CONTAINER -->
+        <div id="mapWrapper" class="map-container-wrap" hidden>
+          <div class="map-header-status">
+            <span><i class="fa-solid fa-location-dot" style="color: var(--teal)"></i> <span id="mapStatusText">Showing verified doctor practices</span></span>
+            <div style="display:flex;gap:8px;align-items:center;">
+              <button id="searchThisAreaBtn" type="button" class="filter-chip" hidden
+                style="cursor:pointer;background:var(--teal);color:#fff;border:none;padding:6px 14px;border-radius:20px;font-size:12px;font-weight:700;">
+                <i class="fa-solid fa-magnifying-glass-location"></i> Search This Area
+              </button>
+              <span id="mapCountBadge" class="filter-chip">0 on map</span>
+            </div>
+          </div>
+          <div id="doctorMap"></div>
+        </div>
+
+        <div class="section-heading results-heading">
+
+          <div>
+
+            <p class="eyebrow">
+              DIRECTORY RESULTS
+            </p>
+
+            <h2 id="resultsTitle">
+              Doctors near you
+            </h2>
+
+            <p id="resultsCount">
+              Select a state and city or click "Find Doctors Near Me" to begin.
+            </p>
+
+          </div>
+
+          <button id="clearBtn" class="text-button" type="button">
+            <i class="fa-solid fa-rotate-left"></i>
+            Clear all filters
+          </button>
+
+        </div>
+
+        <!-- RESULT MESSAGE -->
+
+        <div id="resultMessage" class="result-message info">
+
+          <i class="fa-solid fa-compass"></i>
+
+          <div>
+
+            <strong>
+              Ready when you are
+            </strong>
+
+            <p>
+              Search by city, specialization, or doctor name.
+            </p>
+
+          </div>
+
+        </div>
+
+        <!-- LOADING -->
+
+        <div id="loadingSpinner" class="loading-spinner" hidden aria-live="polite">
+
+          <div class="spinner-ring"></div>
+
+          <strong>
+            Searching verified doctors...
+          </strong>
+
+        </div>
+
+        <!-- DOCTOR CARDS -->
+
+        <div id="doctorContainer" class="doctor-container"></div>
+
+      </section>
+
+    </section>
+
+
+    <!-- ================= SERVICES ================= -->
+
+    <section
+      class="section services-section"
+      id="services"
+    >
+
+      <div class="section-heading">
+
+        <p class="eyebrow">
+          A CLEARER WAY TO SEARCH
+        </p>
+
+        <h2>
+          Tools for your care journey
+        </h2>
+
+      </div>
+
+
+      <div class="service-grid">
+
+        <article class="service-card">
+
+          <i class="fa-solid fa-user-doctor"></i>
+
+          <h3>
+            Find Doctors
+          </h3>
+
+          <p>
+            Browse profiles returned from the available directory.
+          </p>
+
+        </article>
+
+
+        <article class="service-card">
+
+          <i class="fa-solid fa-location-dot"></i>
+
+          <h3>
+            Search by City
+          </h3>
+
+          <p>
+            Find records associated with a location.
+          </p>
+
+        </article>
+
+
+        <article class="service-card">
+
+          <i class="fa-solid fa-location-crosshairs"></i>
+
+          <h3>
+            Nearby Doctors
+          </h3>
+
+          <p>
+            Find verified doctors near your current location.
+          </p>
+
+        </article>
+
+
+        <article class="service-card">
+
+          <i class="fa-solid fa-stethoscope"></i>
+
+          <h3>
+            Search by Specialization
+          </h3>
+
+          <p>
+            Focus your search on a particular area of care.
+          </p>
+
+        </article>
+
+
+        <article class="service-card">
+
+          <i class="fa-regular fa-address-card"></i>
+
+          <h3>
+            Doctor Information
+          </h3>
+
+          <p>
+            Review registration and practice details when available.
+          </p>
+
+        </article>
+
+
+        <article class="service-card">
+
+          <i class="fa-regular fa-calendar-check"></i>
+
+          <h3>
+            Appointment Requests
+          </h3>
+
+          <p>
+            Submit a request without implying confirmation.
+          </p>
+
+        </article>
+
+
+        <article class="service-card">
+
+          <i class="fa-solid fa-shield-halved"></i>
+
+          <h3>
+            Source Traceability
+          </h3>
+
+          <p>
+            See the source and verification status attached to records.
+          </p>
+
+        </article>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= HEALTH & WELLNESS ================= -->
+
+    <section class="section health-wellness-section" id="health-wellness">
+
+      <div class="section-heading">
+
+        <p class="eyebrow">
+          PREVENTIVE CARE &amp; CLINICAL GUIDANCE
+        </p>
+
+        <h2>
+          Health &amp; Wellness Hub
+        </h2>
+
+        <p class="section-intro">
+          Evidence-based wellness articles and screening insights reviewed by clinical principles.
+        </p>
+
+      </div>
+
+      <div class="category-tabs-row" id="healthCategoryTabs" role="tablist">
+        <button class="cat-pill-btn active" data-cat="" type="button">All Topics</button>
+        <button class="cat-pill-btn" data-cat="Heart Health" type="button">Heart Health</button>
+        <button class="cat-pill-btn" data-cat="General Health" type="button">General Health</button>
+        <button class="cat-pill-btn" data-cat="Women's Health" type="button">Women's Health</button>
+        <button class="cat-pill-btn" data-cat="Mental Health" type="button">Mental Health</button>
+        <button class="cat-pill-btn" data-cat="Nutrition" type="button">Nutrition</button>
+        <button class="cat-pill-btn" data-cat="Preventive Care" type="button">Preventive Care</button>
+      </div>
+
+      <div class="health-articles-grid" id="healthArticlesContainer">
+        <!-- Loaded dynamically from /api/health-wellness -->
+      </div>
+
+      <div class="ai-disclaimer-box" style="margin-top: 32px;">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+        <span>
+          <strong>Medical Notice:</strong> Information provided in this section is strictly for health literacy and educational purposes. It does not replace individualized clinical assessment by a licensed medical practitioner.
+        </span>
+      </div>
+
+    </section>
+
+
+    <!-- ================= CALL TO ACTION ================= -->
+
+    <section class="cta-banner-section" id="cta-banner">
+
+      <div class="cta-banner-inner">
+
+        <p class="eyebrow light">
+          START YOUR CARE JOURNEY
+        </p>
+
+        <h2>
+          Ready to Find the Right Doctor?
+        </h2>
+
+        <p>
+          Connect directly with verified, traceable healthcare professionals in your area. Secure, transparent, and completely free to search.
+        </p>
+
+        <div class="hero-cta-group" style="justify-content: center;">
+
+          <button class="btn btn-primary" id="ctaSearchBtn" type="button">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            Find Doctors Near You
+          </button>
+
+          <button class="btn btn-light" id="ctaSignupBtn" type="button">
+            <i class="fa-solid fa-user-plus"></i>
+            Create Free Account
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= WHY SECTION ================= -->
+
+    <section class="why-section">
+
+      <div class="why-inner">
+
+        <div>
+
+          <p class="eyebrow light">
+            WHY DOCTORFINDER?
+          </p>
+
+          <h2>
+            Clarity belongs in healthcare.
+          </h2>
+
+        </div>
+
+
+        <div class="trust-list">
+
+          <div>
+
+            <i class="fa-solid fa-circle-check"></i>
+
+            <span>
+              <strong>
+                Verified information
+              </strong>
+
+              <small>
+                Status is shown on each profile.
+              </small>
+            </span>
+
+          </div>
+
+
+          <div>
+
+            <i class="fa-solid fa-link"></i>
+
+            <span>
+              <strong>
+                Source traceability
+              </strong>
+
+              <small>
+                Review available source details.
+              </small>
+            </span>
+
+          </div>
+
+
+          <div>
+
+            <i class="fa-solid fa-map-location-dot"></i>
+
+            <span>
+              <strong>
+                City-based search
+              </strong>
+
+              <small>
+                Search where you need care.
+              </small>
+            </span>
+
+          </div>
+
+
+          <div>
+
+            <i class="fa-solid fa-location-crosshairs"></i>
+
+            <span>
+              <strong>
+                Nearby search
+              </strong>
+
+              <small>
+                Find doctors around your current location.
+              </small>
+            </span>
+
+          </div>
+
+
+          <div>
+
+            <i class="fa-solid fa-eye"></i>
+
+            <span>
+              <strong>
+                Transparent data
+              </strong>
+
+              <small>
+                Missing information is not guessed.
+              </small>
+            </span>
+
+          </div>
+
+
+          <div>
+
+            <i class="fa-solid fa-lock"></i>
+
+            <span>
+              <strong>
+                Appointment requests
+              </strong>
+
+              <small>
+                Requests are not appointment confirmations.
+              </small>
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= ABOUT ================= -->
+
+    <section
+      class="section about-section"
+      id="about"
+    >
+
+      <div class="about-grid">
+
+        <div>
+
+          <p class="eyebrow">
+            ABOUT DOCTORFINDER
+          </p>
+
+          <h2>
+            Information, made easier to understand.
+          </h2>
+
+        </div>
+
+        <p>
+          DoctorFinder helps users discover healthcare professionals
+          using verified and traceable information from reliable sources.
+          We present what is available in the source data clearly,
+          so you can make informed choices about your next conversation
+          with a healthcare professional.
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= APPOINTMENT ================= -->
+
+    <section
+      class="appointment-section"
+      id="contact"
+    >
+
+      <div class="appointment-intro">
+
+        <p class="eyebrow light">
+          NEXT STEP
+        </p>
+
+        <h2>
+          Request an Appointment
+        </h2>
+
+        <p>
+          Your request will be submitted through DoctorFinder.
+          This does not confirm an appointment with the doctor or hospital.
+        </p>
+
+      </div>
+
+
+      <form id="appointmentForm">
+
+        <div class="form-field">
+
+          <label for="patientName">
+            Your name
+          </label>
+
+          <input
+            id="patientName"
+            type="text"
+            required
+          >
+
+        </div>
+
+
+        <div class="form-field">
+
+          <label for="patientEmail">
+            Email address
+          </label>
+
+          <input
+            id="patientEmail"
+            type="email"
+            required
+          >
+
+        </div>
+
+
+        <div class="form-field">
+
+          <label for="patientPhone">
+            Phone number
+          </label>
+
+          <input
+            id="patientPhone"
+            type="tel"
+            required
+          >
+
+        </div>
+
+
+        <input
+          id="selectedDoctorId"
+          type="hidden"
+        >
+
+
+        <div
+          id="doctorSelection"
+          class="doctor-selection"
+          hidden
+        >
+
+          <i class="fa-solid fa-user-doctor"></i>
+
+          <span>
+
+            <strong>
+              Selected doctor
+            </strong>
+
+            <span id="selectedDoctorName"></span>
+
+          </span>
+
+        </div>
+
+
+        <div class="form-field">
+
+          <label for="appointmentDate">
+            Preferred date
+          </label>
+
+          <input
+            id="appointmentDate"
+            type="date"
+            required
+          >
+
+        </div>
+
+
+        <div class="form-field">
+
+          <label for="appointmentTime">
+            Preferred time
+          </label>
+
+          <input
+            id="appointmentTime"
+            type="text"
+            placeholder="e.g. 10:00 AM"
+            required
+          >
+
+        </div>
+
+
+        <div class="form-field form-field-wide">
+
+          <label for="appointmentNotes">
+            Additional notes
+            <small>(optional)</small>
+          </label>
+
+          <textarea
+            id="appointmentNotes"
+            rows="3"
+          ></textarea>
+
+        </div>
+
+
+        <div class="form-submit">
+
+          <button
+            class="btn btn-light"
+            type="submit"
+          >
+            <i class="fa-regular fa-paper-plane"></i>
+            Send request
+          </button>
+
+          <div
+            id="appointmentMessage"
+            class="appointment-message"
+            role="status"
+            hidden
+          ></div>
+
+        </div>
+
+      </form>
+
+    </section>
+
+  </main>
+
+
+  <!-- ================= FOOTER ================= -->
+
+  <footer>
+
+    <div class="footer-container">
+
+      <div class="footer-about">
+
+        <a
+          class="logo footer-logo"
+          href="#top"
+        >
+
+          <span class="logo-mark">
+            <i class="fa-solid fa-plus"></i>
+          </span>
+
+          DoctorFinder
+
+        </a>
+
+        <p>
+          A clearer way to discover doctors using verified and
+          traceable information.
+        </p>
+
+      </div>
+
+
+      <div>
+
+        <h4>
+          Explore
+        </h4>
+
+        <a href="#top">
+          Home
+        </a>
+
+        <a href="#doctor-results">
+          Find Doctors
+        </a>
+
+        <a href="#services">
+          Services
+        </a>
+
+      </div>
+
+
+      <div>
+
+        <h4>
+          About
+        </h4>
+
+        <a href="#about">
+          About DoctorFinder
+        </a>
+
+        <a href="#contact">
+          Contact
+        </a>
+
+        <a href="#contact">
+          Disclaimer
+        </a>
+
+      </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+      <p>
+        &copy; 2026 DoctorFinder.
+        Information is presented as available from listed sources.
+      </p>
+
+    </div>
+
+  </footer>
+
+
+  <!-- ================= DOCTOR MODAL ================= -->
+
+  <div
+    id="doctorModal"
+    class="modal"
+    hidden
+  >
+
+    <div
+      class="modal-content"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modalTitle"
+    >
+
+      <button
+        class="modal-close"
+        type="button"
+        aria-label="Close details"
+      >
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div id="modalBody"></div>
+
+    </div>
+
+  </div>
+
+
+  <!-- ================= AUTH MODAL ================= -->
+
+  <div
+    id="authModal"
+    class="modal"
+    hidden
+  >
+
+    <div
+      class="modal-content auth-content"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="authTitle"
+    >
+
+      <button
+        class="modal-close"
+        type="button"
+        aria-label="Close authentication"
+      >
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+
+      <div class="auth-tabs">
+
+        <button
+          type="button"
+          data-auth-tab="login"
+        >
+          Login
+        </button>
+
+        <button
+          type="button"
+          data-auth-tab="signup"
+        >
+          Sign Up
+        </button>
+
+      </div>
+
+
+      <div class="auth-layout">
+
+        <aside
+          class="auth-visual"
+          aria-hidden="true"
+        >
+
+          <div
+            class="auth-visual-copy"
+            id="authVisualLogin"
+          >
+
+            <p class="eyebrow light">
+              DOCTORFINDER
+            </p>
+
+            <h3>
+              Healthcare made simpler.
+            </h3>
+
+            <p>
+              Find care with confidence and keep your requests
+              close at hand.
+            </p>
+
+          </div>
+
+
+          <div
+            class="auth-visual-copy"
+            id="authVisualSignup"
+          >
+
+            <p class="eyebrow light">
+              YOUR CARE JOURNEY
+            </p>
+
+            <h3>
+              Create your DoctorFinder account
+            </h3>
+
+            <p>
+              A few details make every future request easier.
+            </p>
+
+            <ul>
+
+              <li>
+                <i class="fa-solid fa-check"></i>
+                Save your details
+              </li>
+
+              <li>
+                <i class="fa-solid fa-check"></i>
+                Submit requests easily
+              </li>
+
+              <li>
+                <i class="fa-solid fa-check"></i>
+                Manage your requests
+              </li>
+
+            </ul>
+
+          </div>
+
+        </aside>
+
+
+        <section class="auth-form-panel">
+
+          <h2 id="authTitle">
+            Welcome Back
+          </h2>
+
+          <p id="authIntro">
+            Sign in to manage your DoctorFinder requests.
+          </p>
+
+
+          <form id="authForm">
+
+            <div
+              class="form-field"
+              id="fullNameField"
+            >
+
+              <label for="authFullName">
+                Full name
+              </label>
+
+              <input
+                id="authFullName"
+                type="text"
+              >
+
+            </div>
+
+
+            <div class="form-field">
+
+              <label for="authEmail">
+                Email
+              </label>
+
+              <input
+                id="authEmail"
+                type="email"
+                required
+              >
+
+            </div>
+
+
+            <div
+              class="form-field"
+              id="phoneField"
+            >
+
+              <label for="authPhone">
+                Phone
+              </label>
+
+              <input
+                id="authPhone"
+                type="tel"
+              >
+
+            </div>
+
+
+            <div class="form-field">
+
+              <label for="authPassword">
+                Password
+              </label>
+
+              <div class="password-field">
+
+                <input
+                  id="authPassword"
+                  type="password"
+                  minlength="8"
+                  required
+                >
+
+                <button
+                  type="button"
+                  id="togglePassword"
+                  aria-label="Show password"
+                >
+                  <i class="fa-regular fa-eye"></i>
+                </button>
+
+              </div>
+
+            </div>
+
+
+            <div
+              class="form-field"
+              id="confirmPasswordField"
+            >
+
+              <label for="authConfirmPassword">
+                Confirm password
+              </label>
+
+              <input
+                id="authConfirmPassword"
+                type="password"
+                minlength="8"
+              >
+
+            </div>
+
+
+            <div class="auth-options">
+
+              <label
+                class="check-row"
+                id="rememberRow"
+              >
+
+                <input
+                  type="checkbox"
+                  id="rememberMe"
+                >
+
+                Remember me
+
+              </label>
+
+
+              <button
+                class="forgot-password"
+                id="forgotPassword"
+                type="button"
+              >
+                Forgot password?
+              </button>
+
+            </div>
+
+
+            <button
+              class="btn btn-primary"
+              type="submit"
+              id="authSubmit"
+            >
+              Login
+            </button>
+
+
+            <p
+              id="authMessage"
+              class="auth-message"
+              role="status"
+            ></p>
+
+
+            <p
+              class="auth-switch"
+              id="authSwitchText"
+            >
+              Don't have an account?
+
+              <button
+                type="button"
+                data-auth-tab="signup"
+              >
+                Sign Up
+              </button>
+
+            </p>
+
+          </form>
+
+        </section>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- ================= USER DASHBOARD MODAL ================= -->
+
+  <div id="userDashboardModal" class="modal" hidden>
+    <div class="modal-content dashboard-modal-content" role="dialog" aria-modal="true" aria-labelledby="dashTitle">
+      <button class="modal-close" type="button" id="closeUserDashboardBtn" aria-label="Close dashboard">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="modal-header">
+        <p class="eyebrow"><i class="fa-solid fa-user-circle"></i> PATIENT WORKSPACE</p>
+        <h2 id="dashTitle">My Health Dashboard</h2>
+        <p id="dashUserMeta">Managing appointments, saved specialists, and consultations</p>
+      </div>
+
+      <!-- Dashboard Statistics -->
+      <div class="dashboard-stats-grid">
+        <div class="stat-tile">
+          <span class="stat-tile-label"><i class="fa-solid fa-heart" style="color: var(--rose)"></i> Saved Doctors</span>
+          <div class="stat-tile-num" id="statSavedCount">0</div>
+        </div>
+        <div class="stat-tile">
+          <span class="stat-tile-label"><i class="fa-regular fa-calendar-check" style="color: var(--teal)"></i> Upcoming</span>
+          <div class="stat-tile-num" id="statUpcomingCount">0</div>
+        </div>
+        <div class="stat-tile">
+          <span class="stat-tile-label"><i class="fa-solid fa-check-double" style="color: var(--emerald)"></i> Completed</span>
+          <div class="stat-tile-num" id="statCompletedCount">0</div>
+        </div>
+        <div class="stat-tile">
+          <span class="stat-tile-label"><i class="fa-regular fa-star" style="color: #f59e0b)"></i> Reviews Given</span>
+          <div class="stat-tile-num" id="statReviewsCount">0</div>
+        </div>
+      </div>
+
+      <!-- Dashboard Tabs -->
+      <div class="dashboard-tabs" role="tablist">
+        <button class="dashboard-tab-btn active" data-tab="saved" type="button">
+          <i class="fa-solid fa-heart"></i> Saved Doctors
+        </button>
+        <button class="dashboard-tab-btn" data-tab="upcoming" type="button">
+          <i class="fa-regular fa-calendar-days"></i> Upcoming Appointments
+        </button>
+        <button class="dashboard-tab-btn" data-tab="past" type="button">
+          <i class="fa-solid fa-clock-rotate-left"></i> Appointment History
+        </button>
+        <button class="dashboard-tab-btn" data-tab="reviews" type="button">
+          <i class="fa-regular fa-star"></i> My Reviews
+        </button>
+        <button class="dashboard-tab-btn" data-tab="settings" type="button">
+          <i class="fa-solid fa-gear"></i> Account Settings
+        </button>
+      </div>
+
+      <!-- Tab Content: Saved Doctors -->
+      <div id="tabContentSaved" class="dashboard-tab-panel">
+        <div id="dashSavedContainer" class="doctor-container"></div>
+      </div>
+
+      <!-- Tab Content: Upcoming Appointments -->
+      <div id="tabContentUpcoming" class="dashboard-tab-panel" hidden>
+        <div id="dashUpcomingList" class="reviews-list-container"></div>
+      </div>
+
+      <!-- Tab Content: Past Appointments -->
+      <div id="tabContentPast" class="dashboard-tab-panel" hidden>
+        <div id="dashPastList" class="reviews-list-container"></div>
+      </div>
+
+      <!-- Tab Content: My Reviews -->
+      <div id="tabContentReviews" class="dashboard-tab-panel" hidden>
+        <div id="dashReviewsList" class="reviews-list-container"></div>
+      </div>
+
+      <!-- Tab Content: Settings -->
+      <div id="tabContentSettings" class="dashboard-tab-panel" hidden>
+        <form id="profileUpdateForm" style="display: grid; gap: 16px; max-width: 480px;">
+          <div class="form-field">
+            <label for="editFullName">Full Name</label>
+            <input type="text" id="editFullName" required>
+          </div>
+          <div class="form-field">
+            <label for="editPhone">Phone Number</label>
+            <input type="tel" id="editPhone" required>
+          </div>
+          <button type="submit" class="btn btn-primary" style="justify-self: start;">
+            <i class="fa-solid fa-floppy-disk"></i> Save Profile Details
+          </button>
+          <div id="profileUpdateMessage" class="result-message" hidden></div>
+        </form>
+
+        <hr style="border: 0; border-top: 1px solid var(--line); margin: 28px 0;">
+
+        <form id="passwordChangeForm" style="display: grid; gap: 16px; max-width: 480px;">
+          <h3 style="font-size: 16px; color: var(--navy);">Change Password</h3>
+          <div class="form-field">
+            <label for="currentPassword">Current Password</label>
+            <input type="password" id="currentPassword" required>
+          </div>
+          <div class="form-field">
+            <label for="newPassword">New Password (min. 8 characters)</label>
+            <input type="password" id="newPassword" minlength="8" required>
+          </div>
+          <button type="submit" class="btn btn-light" style="justify-self: start;">
+            <i class="fa-solid fa-key"></i> Update Password
+          </button>
+          <div id="passwordChangeMessage" class="result-message" hidden></div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ================= ADMIN DASHBOARD PORTAL ================= -->
+
+  <div id="adminDashboardModal" class="modal" hidden>
+    <div class="modal-content dashboard-modal-content" style="width: min(1080px, 98%);" role="dialog" aria-modal="true" aria-labelledby="adminTitle">
+      <button class="modal-close" type="button" id="closeAdminDashboardBtn" aria-label="Close Admin Portal">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="modal-header">
+        <p class="eyebrow" style="color: var(--amber);"><i class="fa-solid fa-shield-halved"></i> SYSTEM ADMINISTRATOR CONTROL CENTER</p>
+        <h2 id="adminTitle">DoctorFinder Administration</h2>
+        <p>Verification workflows, credential tracking, user authorization, and moderation</p>
+      </div>
+
+      <!-- Admin KPI Stats -->
+      <div class="dashboard-stats-grid">
+        <div class="stat-tile">
+          <span class="stat-tile-label"><i class="fa-solid fa-users" style="color: var(--teal)"></i> Total Users</span>
+          <div class="stat-tile-num" id="adminTotalUsers">0</div>
+        </div>
+        <div class="stat-tile">
+          <span class="stat-tile-label"><i class="fa-solid fa-user-doctor" style="color: var(--navy)"></i> Total Doctors</span>
+          <div class="stat-tile-num" id="adminTotalDoctors">0</div>
+        </div>
+        <div class="stat-tile">
+          <span class="stat-tile-label"><i class="fa-solid fa-circle-check" style="color: var(--emerald)"></i> Verified Doctors</span>
+          <div class="stat-tile-num" id="adminVerifiedDoctors">0</div>
+        </div>
+        <div class="stat-tile">
+          <span class="stat-tile-label"><i class="fa-solid fa-clock" style="color: var(--amber)"></i> Pending Doctors</span>
+          <div class="stat-tile-num" id="adminPendingDoctors">0</div>
+        </div>
+        <div class="stat-tile">
+          <span class="stat-tile-label"><i class="fa-regular fa-calendar-check" style="color: var(--teal)"></i> Appointments</span>
+          <div class="stat-tile-num" id="adminTotalAppointments">0</div>
+        </div>
+        <div class="stat-tile">
+          <span class="stat-tile-label"><i class="fa-regular fa-star" style="color: #f59e0b)"></i> Reviews</span>
+          <div class="stat-tile-num" id="adminTotalReviews">0</div>
+        </div>
+      </div>
+
+      <!-- Admin Tabs -->
+      <div class="dashboard-tabs" role="tablist">
+        <button class="dashboard-tab-btn active" data-admin-tab="doctors" type="button">
+          <i class="fa-solid fa-user-doctor"></i> Doctor Verification &amp; Records
+        </button>
+        <button class="dashboard-tab-btn" data-admin-tab="users" type="button">
+          <i class="fa-solid fa-users"></i> Users Management
+        </button>
+        <button class="dashboard-tab-btn" data-admin-tab="appointments" type="button">
+          <i class="fa-regular fa-calendar-check"></i> Platform Appointments
+        </button>
+        <button class="dashboard-tab-btn" data-admin-tab="reviews" type="button">
+          <i class="fa-regular fa-star-half-stroke"></i> Review Moderation
+        </button>
+      </div>
+
+      <!-- Admin Tab: Doctors -->
+      <div id="adminTabDoctors" class="admin-tab-panel">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 10px;">
+          <div style="display: flex; gap: 10px; align-items: center;">
+            <select id="adminDoctorStatusFilter" style="padding: 7px 12px; border-radius: 8px; border: 1px solid var(--line);">
+              <option value="">All Verification Statuses</option>
+              <option value="verified">Verified Only</option>
+              <option value="pending">Pending Only</option>
+              <option value="unverified">Unverified Only</option>
+            </select>
+            <input type="text" id="adminDoctorSearchInput" placeholder="Search doctor, council, reg #..." style="padding: 7px 12px; border-radius: 8px; border: 1px solid var(--line); min-width: 220px;">
+          </div>
+          <button class="btn btn-primary" id="openAddDoctorModalBtn" type="button" style="padding: 9px 16px; font-size: 13px;">
+            <i class="fa-solid fa-plus"></i> Add Verified Doctor
+          </button>
+        </div>
+        <div class="data-table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Doctor</th>
+                <th>Reg. Number</th>
+                <th>Specialization</th>
+                <th>Hospital / Location</th>
+                <th>Status</th>
+                <th>Source Info</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="adminDoctorsTableBody">
+              <!-- Dynamically rendered -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Admin Tab: Users -->
+      <div id="adminTabUsers" class="admin-tab-panel" hidden>
+        <div class="data-table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Role</th>
+                <th>Joined</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="adminUsersTableBody">
+              <!-- Dynamically rendered -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Admin Tab: Appointments -->
+      <div id="adminTabAppointments" class="admin-tab-panel" hidden>
+        <div style="margin-bottom: 14px;">
+          <select id="adminAptStatusFilter" style="padding: 7px 12px; border-radius: 8px; border: 1px solid var(--line);">
+            <option value="">All Statuses</option>
+            <option value="requested">Requested</option>
+            <option value="confirmed">Confirmed</option>
+            <option value="completed">Completed</option>
+            <option value="cancelled">Cancelled</option>
+          </select>
+        </div>
+        <div class="data-table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Patient</th>
+                <th>Doctor</th>
+                <th>Date &amp; Time</th>
+                <th>Status</th>
+                <th>Notes</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="adminAppointmentsTableBody">
+              <!-- Dynamically rendered -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Admin Tab: Reviews -->
+      <div id="adminTabReviews" class="admin-tab-panel" hidden>
+        <div class="data-table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>User</th>
+                <th>Doctor</th>
+                <th>Rating</th>
+                <th>Comment</th>
+                <th>Date</th>
+                <th>Moderation</th>
+              </tr>
+            </thead>
+            <tbody id="adminReviewsTableBody">
+              <!-- Dynamically rendered -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ================= ADD DOCTOR MODAL (ADMIN ONLY) ================= -->
+
+  <div id="addDoctorModal" class="modal" hidden>
+    <div class="modal-content" style="width: min(680px, 96%);" role="dialog" aria-modal="true" aria-labelledby="addDocTitle">
+      <button class="modal-close" type="button" id="closeAddDoctorBtn" aria-label="Close form">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="modal-header">
+        <p class="eyebrow" style="color: var(--teal);"><i class="fa-solid fa-certificate"></i> REAL CREDENTIAL VERIFICATION</p>
+        <h2 id="addDocTitle">Add Doctor Record</h2>
+        <p>Must contain authentic medical council registration and traceable source URL</p>
+      </div>
+
+      <form id="addDoctorForm" style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+        <div class="form-field">
+          <label for="newDocName">Doctor Full Name *</label>
+          <input type="text" id="newDocName" required placeholder="e.g. Dr. Ramesh Sharma">
+        </div>
+        <div class="form-field">
+          <label for="newDocReg">Registration Number *</label>
+          <input type="text" id="newDocReg" required placeholder="e.g. MP-12345">
+        </div>
+        <div class="form-field">
+          <label for="newDocCouncil">Registered Medical Council *</label>
+          <input type="text" id="newDocCouncil" required placeholder="e.g. Madhya Pradesh Medical Council">
+        </div>
+        <div class="form-field">
+          <label for="newDocRegYear">Registration Year</label>
+          <input type="number" id="newDocRegYear" placeholder="e.g. 2012">
+        </div>
+        <div class="form-field">
+          <label for="newDocQual">Qualifications (semi-colon separated)</label>
+          <input type="text" id="newDocQual" placeholder="MBBS; MD - Medicine">
+        </div>
+        <div class="form-field">
+          <label for="newDocSpec">Specialization *</label>
+          <input type="text" id="newDocSpec" required placeholder="e.g. Internal Medicine">
+        </div>
+        <div class="form-field">
+          <label for="newDocState">State *</label>
+          <input type="text" id="newDocState" required placeholder="e.g. Madhya Pradesh">
+        </div>
+        <div class="form-field">
+          <label for="newDocCity">City *</label>
+          <input type="text" id="newDocCity" required placeholder="e.g. Bhopal">
+        </div>
+        <div class="form-field">
+          <label for="newDocHospital">Hospital / Clinic Name</label>
+          <input type="text" id="newDocHospital" placeholder="e.g. Apollo Hospital">
+        </div>
+        <div class="form-field">
+          <label for="newDocFee">Consultation Fee (₹)</label>
+          <input type="number" id="newDocFee" placeholder="e.g. 500">
+        </div>
+        <div class="form-field form-field-wide">
+          <label for="newDocAddress">Practice Address</label>
+          <input type="text" id="newDocAddress" placeholder="Street, area, postal code">
+        </div>
+        <div class="form-field">
+          <label for="newDocLat">Latitude (for map / GPS)</label>
+          <input type="number" step="any" id="newDocLat" placeholder="e.g. 23.2569">
+        </div>
+        <div class="form-field">
+          <label for="newDocLng">Longitude (for map / GPS)</label>
+          <input type="number" step="any" id="newDocLng" placeholder="e.g. 77.3910">
+        </div>
+        <div class="form-field">
+          <label for="newDocSource">Data Source Description *</label>
+          <input type="text" id="newDocSource" required placeholder="e.g. State Medical Council Directory">
+        </div>
+        <div class="form-field">
+          <label for="newDocSourceUrl">Source URL (http/https) *</label>
+          <input type="url" id="newDocSourceUrl" required placeholder="https://...">
+        </div>
+        <div class="form-field">
+          <label for="newDocVerification">Verification Status *</label>
+          <select id="newDocVerification">
+            <option value="verified" selected>Verified</option>
+            <option value="pending">Pending</option>
+            <option value="unverified">Unverified</option>
+          </select>
+        </div>
+        <div class="form-submit form-field-wide" style="margin-top: 10px;">
+          <button type="submit" class="btn btn-primary" id="saveDoctorBtn">
+            <i class="fa-solid fa-check"></i> Save Doctor Record
+          </button>
+          <div id="addDoctorMessage" class="result-message" hidden></div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- ================= AI SPECIALIST FINDER MODAL ================= -->
+
+  <div id="aiModal" class="modal" hidden>
+    <div class="modal-content ai-modal-content" role="dialog" aria-modal="true" aria-labelledby="aiTitle">
+      <button class="modal-close" type="button" id="closeAiModalBtn" aria-label="Close AI specialist finder">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="modal-header">
+        <span class="ai-badge"><i class="fa-solid fa-sparkles"></i> POWERED BY GOOGLE GEMINI</span>
+        <h2 id="aiTitle" style="margin-top: 8px;">AI Specialization Assistant</h2>
+        <p>Describe what you are experiencing to discover which clinical specialization is appropriate for consultation.</p>
+      </div>
+
+      <div class="ai-examples-wrap">
+        <span class="ai-example-chip" data-prompt="I have persistent morning stiffness, swelling, and ache in both my knees for the past three weeks.">Joint pain &amp; knee stiffness</span>
+        <span class="ai-example-chip" data-prompt="Frequent skin irritation, dry red patches, and intense itching on my arms.">Skin rash &amp; irritation</span>
+        <span class="ai-example-chip" data-prompt="Persistent dry cough, mild breathlessness during walks, and throat irritation.">Respiratory cough &amp; throat</span>
+        <span class="ai-example-chip" data-prompt="Recurring sharp headaches on one side with sensitivity to light and sound.">Migraine &amp; headaches</span>
+      </div>
+
+      <form id="aiRecommendForm" style="display: grid; gap: 14px;">
+        <label for="aiSymptomInput" style="font-size: 13px; font-weight: 700; color: var(--ink);">
+          Describe your symptoms, duration, and concerns:
+        </label>
+        <textarea id="aiSymptomInput" class="ai-symptom-box" rows="4" placeholder="e.g. For the last 2 weeks I have noticed occasional dizziness and rapid heartbeat when standing up quickly..." required></textarea>
+
+        <button type="submit" class="btn btn-primary" id="aiSubmitBtn" style="justify-self: start;">
+          <i class="fa-solid fa-wand-magic-sparkles"></i> Analyze &amp; Recommend Specialist
+        </button>
+      </form>
+
+      <!-- AI Loading State -->
+      <div id="aiLoading" class="loading-spinner" hidden style="margin: 24px 0;">
+        <div class="spinner-ring"></div>
+        <strong>Analyzing description with Gemini clinical routing principles...</strong>
+      </div>
+
+      <!-- AI Result Panel -->
+      <div id="aiResultPanel" class="ai-result-panel" hidden>
+        <h3><i class="fa-solid fa-stethoscope"></i> Recommended Care Specialization</h3>
+        <div style="margin: 12px 0;">
+          <span id="aiPrimarySpecBadge" class="filter-chip" style="background: var(--teal); color: #fff; font-size: 14px; padding: 6px 14px;"></span>
+        </div>
+        <p id="aiExplanation" style="font-size: 14px; color: var(--ink); line-height: 1.6; margin-bottom: 14px;"></p>
+        
+        <div id="aiQuestionsWrap" style="background: #ffffff; border: 1px solid var(--line); border-radius: 8px; padding: 14px; margin-bottom: 16px;">
+          <strong style="font-size: 13px; color: var(--navy); display: block; margin-bottom: 8px;">Helpful Questions for Your Doctor:</strong>
+          <ul id="aiQuestionsList" style="margin: 0; padding-left: 20px; font-size: 13px; color: var(--ink); display: grid; gap: 4px;"></ul>
+        </div>
+
+        <div class="ai-disclaimer-box">
+          <i class="fa-solid fa-shield-halved"></i>
+          <span id="aiDisclaimerText">
+            <strong>Important Safety Notice:</strong> This guidance is generated by AI strictly for specialist routing. It is NOT a medical diagnosis or treatment plan. For acute emergencies, call emergency services or visit the nearest hospital emergency room.
+          </span>
+        </div>
+
+        <!-- Matched Verified Doctors in Platform -->
+        <div style="margin-top: 20px;">
+          <h4 style="font-size: 15px; color: var(--navy); margin-bottom: 12px;">Verified Specialists in DoctorFinder:</h4>
+          <div id="aiMatchedDoctorsContainer" class="doctor-container"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ================= HEALTH ARTICLE MODAL ================= -->
+
+  <div id="healthArticleModal" class="modal" hidden>
+    <div class="modal-content" style="width: min(720px, 96%);" role="dialog" aria-modal="true" aria-labelledby="healthModalTitle">
+      <button class="modal-close" type="button" id="closeHealthModalBtn" aria-label="Close article">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="modal-header">
+        <span class="health-cat-badge" id="healthModalCategory">Heart Health</span>
+        <h2 id="healthModalTitle" style="margin-top: 10px; font-size: 24px;">Understanding Cardiovascular Health</h2>
+        <p id="healthModalReadTime" style="color: var(--muted); font-size: 12px; margin-top: 4px;">4 min read</p>
+      </div>
+
+      <div id="healthModalBody" style="line-height: 1.7; font-size: 14px; color: var(--ink);">
+        <p id="healthModalSummary" style="font-weight: 600; color: var(--navy); margin-bottom: 16px;"></p>
+        <div id="healthModalDetailed" style="margin-bottom: 18px;"></div>
+        
+        <div style="background: var(--paper); border: 1px solid var(--line); border-radius: 10px; padding: 16px; margin: 18px 0;">
+          <h4 style="font-size: 14px; color: var(--teal-dark); margin-bottom: 8px;"><i class="fa-solid fa-lightbulb"></i> Clinical Action Steps:</h4>
+          <ul id="healthModalTipsList" style="margin: 0; padding-left: 20px; display: grid; gap: 6px;"></ul>
+        </div>
+
+        <div class="ai-disclaimer-box" style="margin-top: 20px;">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+          <span id="healthModalDisclaimer"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ================= STYLES ================= -->
+
+  <style>
+
+    main {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .hero {
+      order: 1;
+      background-image: url('female_doctor.jpg');
+      background-position: 62% 20%;
+      background-size: cover;
+    }
+
+    .hero-overlay {
+      background:
+        linear-gradient(
+          90deg,
+          rgba(8,35,51,.64),
+          rgba(8,35,51,.34) 46%,
+          rgba(8,35,51,.08) 78%
+        ),
+        linear-gradient(
+          180deg,
+          rgba(8,35,51,.08),
+          rgba(8,35,51,.22)
+        );
+    }
+
+    .hero-copy {
+      animation: hero-copy-in .7s ease both;
+    }
+
+    .public-hero .hero-inner {
+      max-width: 900px;
+    }
+
+    .hero-cta-group {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-top: 26px;
+    }
+
+    .hero-cta-group .btn {
+      padding: 13px 26px;
+      font-size: 15px;
+      font-weight: 700;
+      border-radius: 10px;
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      text-decoration: none;
+    }
+
+    .hero-badges {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 30px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(255,255,255,.2);
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #e5f7f6;
+      font-size: 13px;
+      font-weight: 600;
+      background: rgba(255,255,255,.14);
+      padding: 6px 14px;
+      border-radius: 999px;
+      backdrop-filter: blur(4px);
+    }
+
+    .hero-badge i {
+      color: #83d9d2;
+    }
+
+    .badges-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .distance-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: #e6f7f5;
+      color: var(--teal);
+      font-size: 11px;
+      font-weight: 700;
+      border: 1px solid #b5e8e4;
+    }
+
+    /* HOW IT WORKS */
+    .how-it-works-section {
+      order: 2;
+      background: #f7fafb;
+      padding: 70px 0;
+    }
+
+    .how-it-works-section .section-heading {
+      text-align: center;
+      margin-bottom: 42px;
+    }
+
+    .section-intro {
+      color: var(--muted);
+      font-size: 15px;
+      margin-top: 8px;
+    }
+
+    .how-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .how-card {
+      position: relative;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 34px 24px 28px;
+      box-shadow: 0 8px 24px rgba(16,42,67,.05);
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+
+    .how-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 36px rgba(16,42,67,.1);
+    }
+
+    .step-badge {
+      position: absolute;
+      top: -14px;
+      left: 24px;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--teal);
+      color: #fff;
+      font-weight: 800;
+      font-size: 14px;
+      display: grid;
+      place-items: center;
+      box-shadow: 0 4px 10px rgba(8,127,140,.3);
+    }
+
+    .how-card > i {
+      font-size: 32px;
+      color: var(--teal);
+      margin-bottom: 18px;
+    }
+
+    .how-card h3 {
+      font-size: 18px;
+      color: var(--navy);
+      margin-bottom: 10px;
+    }
+
+    .how-card p {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
+      margin: 0;
+    }
+
+    /* AUTHENTICATED APP DASHBOARD */
+    .app-dashboard-section {
+      order: 3;
+      padding: 50px 0 30px;
+      background: linear-gradient(180deg, #f0f7f8 0%, #ffffff 100%);
+      border-bottom: 1px solid var(--line);
+      animation: dashboard-in .4s ease both;
+    }
+
+    .app-dashboard-header {
+      max-width: 1200px;
+      margin: 0 auto 30px;
+      padding: 0 24px;
+    }
+
+    .app-dashboard-header h2 {
+      font-size: 32px;
+      color: var(--navy);
+      margin: 6px 0 8px;
+    }
+
+    .app-dashboard-header p:not(.eyebrow) {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .app-search-wrapper {
+      max-width: 1200px;
+      margin: 0 auto 40px;
+      padding: 0 24px;
+    }
+
+    .search-panel {
+      animation: panel-in .7s .12s ease both;
+      backdrop-filter: blur(12px);
+      background: rgba(255,255,255,.95);
+      border: 1px solid #d4e8e6;
+      box-shadow: 0 14px 40px rgba(8,127,140,.12);
+    }
+
+    .results-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .services-section {
+      order: 4;
+    }
+
+    .why-section {
+      order: 5;
+    }
+
+    .about-section {
+      order: 6;
+    }
+
+    .appointment-section {
+      order: 7;
+    }
+
+    .nav-greeting {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--navy);
+      padding: 6px 12px;
+      background: #e8f5f4;
+      border-radius: 8px;
+    }
+
+    .navbar {
+      box-shadow: 0 5px 22px rgba(16,42,67,.07);
+    }
+
+    .nav-links a.active {
+      color: var(--teal);
+      position: relative;
+    }
+
+    .nav-links a.active::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -9px;
+      height: 2px;
+      border-radius: 2px;
+      background: var(--teal);
+    }
+
+    .doctor-card:hover .doctor-image {
+      transform: scale(1.035);
+    }
+
+    .doctor-image {
+      transition: transform .45s ease;
+    }
+
+    .modal {
+      overscroll-behavior: contain;
+    }
+
+    .modal-open {
+      overflow: hidden;
+    }
+
+
+    /* AUTH */
+
+    .auth-content {
+      width: min(960px,100%);
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .auth-content > .modal-close {
+      z-index: 5;
+    }
+
+    .auth-tabs {
+      position: absolute;
+      z-index: 2;
+      top: 22px;
+      right: 58px;
+      width: 190px;
+      margin: 0;
+      background: rgba(245,249,250,.82);
+    }
+
+    .auth-layout {
+      display: grid;
+      grid-template-columns: 40% 60%;
+      min-height: 510px;
+    }
+
+    .auth-visual {
+      position: relative;
+      display: flex;
+      align-items: end;
+      padding: 38px;
+      background:
+        linear-gradient(
+          180deg,
+          rgba(6,97,107,.15),
+          rgba(7,42,57,.9)
+        ),
+        url('female_doctor.jpg') center/cover;
+    }
+
+    .auth-visual::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(
+          145deg,
+          rgba(8,127,140,.16),
+          rgba(16,42,67,.55)
+        );
+    }
+
+    .auth-visual-copy {
+      position: relative;
+      z-index: 1;
+      color: #fff;
+      max-width: 280px;
+    }
+
+    .auth-visual-copy h3 {
+      font-size: 30px;
+      margin-bottom: 12px;
+    }
+
+    .auth-visual-copy p:not(.eyebrow) {
+      color: #d7eeee;
+      font-size: 14px;
+    }
+
+    .auth-visual-copy ul {
+      list-style: none;
+      padding: 0;
+      margin: 24px 0 0;
+      display: grid;
+      gap: 12px;
+      color: #e5f7f6;
+      font-size: 13px;
+    }
+
+    .auth-visual-copy li i {
+      color: #83d9d2;
+      margin-right: 8px;
+    }
+
+    .auth-form-panel {
+      padding: 78px 58px 42px;
+    }
+
+    .auth-form-panel h2 {
+      font-size: 32px;
+      color: var(--navy);
+    }
+
+    .auth-form-panel > p {
+      color: var(--muted);
+      font-size: 14px;
+      margin: 8px 0 27px;
+    }
+
+    .auth-form-panel form {
+      max-width: 390px;
+    }
+
+    .auth-options {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .forgot-password {
+      border: 0;
+      background: none;
+      color: var(--teal);
+      font-size: 12px;
+      padding: 0;
+    }
+
+    .auth-switch {
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 18px;
+    }
+
+    .auth-switch button {
+      border: 0;
+      background: none;
+      color: var(--teal);
+      font-weight: 700;
+      padding: 0;
+    }
+
+    .auth-modal-login #authVisualSignup,
+    .auth-modal-signup #authVisualLogin {
+      display: none;
+    }
+
+    .auth-modal-signup .auth-visual {
+      order: 2;
+      background-image:
+        linear-gradient(
+          180deg,
+          rgba(6,97,107,.08),
+          rgba(7,42,57,.82)
+        ),
+        url('male_dr.webp');
+    }
+
+    .auth-modal-signup .auth-form-panel {
+      order: 1;
+    }
+
+    .auth-modal-signup .auth-tabs {
+      right: auto;
+      left: 58px;
+    }
+
+    .auth-modal-signup .auth-form-panel {
+      padding-top: 78px;
+    }
+
+
+    /* SEARCH BUTTONS */
+
+    .search-actions {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+      grid-column: 1 / -1;
+    }
+
+    .search-actions .btn {
+      flex: 1;
+      min-width: 210px;
+    }
+
+    .btn-nearby {
+      border: 1px solid var(--teal);
+      background: #fff;
+      color: var(--teal);
+    }
+
+    .btn-nearby:hover {
+      background: var(--teal);
+      color: #fff;
+    }
+
+    .btn-nearby:disabled {
+      opacity: .65;
+      cursor: not-allowed;
+    }
+
+
+    /* ANIMATIONS */
+
+    @keyframes hero-copy-in {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    @keyframes panel-in {
+      from {
+        opacity: 0;
+        transform: translateY(24px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+
+    /* RESPONSIVE */
+
+    @media(max-width:900px) {
+
+      .hero {
+        background-position: 62% 22%;
+      }
+
+      .auth-layout {
+        grid-template-columns: 38% 62%;
+      }
+
+      .auth-form-panel {
+        padding-left: 35px;
+        padding-right: 35px;
+      }
+
+      .auth-modal-signup .auth-tabs {
+        left: 35px;
+      }
+
+    }
+
+
+    @media(max-width:760px) {
+
+      .nav-links a.active::after {
+        display: none;
+      }
+
+      .hero {
+        background-position: 62% 20%;
+      }
+
+      .hero-overlay {
+        background:
+          linear-gradient(
+            90deg,
+            rgba(8,35,51,.58),
+            rgba(8,35,51,.2)
+          ),
+          linear-gradient(
+            180deg,
+            rgba(8,35,51,.06),
+            rgba(8,35,51,.3)
+          );
+      }
+
+      .auth-content {
+        max-height: calc(100vh - 20px);
+        overflow: auto;
+      }
+
+      .auth-tabs,
+      .auth-modal-signup .auth-tabs {
+        position: static;
+        width: auto;
+        margin: 0 20px;
+        transform: translateY(20px);
+      }
+
+      .auth-layout {
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+      }
+
+      .auth-visual,
+      .auth-modal-signup .auth-visual {
+        order: 0;
+        min-height: 205px;
+        padding: 25px 24px 24px;
+      }
+
+      .auth-visual-copy h3 {
+        font-size: 24px;
+      }
+
+      .auth-form-panel,
+      .auth-modal-signup .auth-form-panel {
+        order: 1;
+        padding: 55px 24px 28px;
+      }
+
+      .auth-form-panel form {
+        max-width: none;
+      }
+
+      .auth-modal-signup .auth-visual {
+        min-height: 260px;
+      }
+
+      .auth-modal-signup .auth-form-panel {
+        padding-top: 35px;
+      }
+
+    }
+
+
+    @media(max-width:600px) {
+
+      .search-actions {
+        flex-direction: column;
+      }
+
+      .search-actions .btn {
+        width: 100%;
+        min-width: 0;
+      }
+
+    }
+
+
+    @media(max-width:480px) {
+
+      .hero {
+        background-position: 62% 20%;
+      }
+
+      .auth-content {
+        border-radius: 12px;
+      }
+
+      .auth-visual {
+        min-height: 190px;
+      }
+
+      .auth-modal-signup .auth-visual {
+        min-height: 245px;
+      }
+
+      .auth-options {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 9px;
+      }
+
+    }
+
+
+    @media(prefers-reduced-motion:reduce) {
+
+      .hero-copy,
+      .search-panel {
+        animation: none !important;
+      }
+
+      .doctor-image {
+        transition: none !important;
+      }
+
+    }
+
+
+    /* AUTHENTICATION MODAL */
+
+    #authModal {
+      background: rgba(8,29,43,.72);
+      backdrop-filter: blur(8px);
+    }
+
+    #authModal .auth-content {
+      width: min(980px,100%);
+      max-height: min(720px,calc(100vh - 32px));
+      border: 1px solid rgba(255,255,255,.55);
+      border-radius: 24px;
+      box-shadow: 0 28px 90px rgba(4,24,38,.35);
+      overflow: auto;
+      animation: auth-modal-in .35s ease both;
+    }
+
+    #authModal .auth-layout {
+      grid-template-columns: 45% 55%;
+      min-height: 600px;
+    }
+
+    #authModal .auth-visual {
+      padding: 42px 36px;
+      background-position: center 18%;
+      border-radius: 24px 0 0 24px;
+    }
+
+    #authModal .auth-visual::after {
+      background:
+        linear-gradient(
+          160deg,
+          rgba(8,127,140,.18),
+          rgba(8,35,51,.82)
+        );
+    }
+
+    #authModal .auth-visual-copy h3 {
+      font-size: 34px;
+      letter-spacing: -.6px;
+    }
+
+    #authModal .auth-visual-copy p:not(.eyebrow) {
+      line-height: 1.6;
+    }
+
+    #authModal .auth-form-panel {
+      padding: 58px 54px 38px;
+      background: #fff;
+    }
+
+    #authModal .auth-form-panel h2 {
+      font-size: 31px;
+      letter-spacing: -.4px;
+    }
+
+    #authModal .auth-form-panel > p {
+      margin: 9px 0 25px;
+    }
+
+    #authModal .auth-tabs {
+      display: flex;
+      gap: 4px;
+      position: absolute;
+      top: 24px;
+      right: 54px;
+      width: 190px;
+      padding: 4px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #f5f9fa;
+      transform: none;
+    }
+
+    #authModal .auth-tabs button {
+      border: 0;
+      border-radius: 999px;
+      background: transparent;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      padding: 9px 14px;
+    }
+
+    #authModal .auth-tabs button.active {
+      background: var(--teal);
+      color: #fff;
+      box-shadow: 0 5px 14px rgba(8,127,140,.22);
+    }
+
+    #authModal .modal-close {
+      top: 16px;
+      right: 18px;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #f5f9fa;
+      color: var(--ink);
+      font-size: 15px;
+    }
+
+    #authModal .modal-close:hover {
+      background: var(--mint);
+      color: var(--teal);
+    }
+
+    #authModal .auth-form-panel form {
+      display: grid;
+      gap: 14px;
+      max-width: none;
+    }
+
+    #authModal .form-field[hidden] {
+      display: none !important;
+    }
+
+    #authModal .form-field {
+      gap: 6px;
+    }
+
+    #authModal .form-field label {
+      font-size: 11px;
+      letter-spacing: .2px;
+    }
+
+    #authModal .auth-input-wrap {
+      position: relative;
+    }
+
+    #authModal .auth-input-wrap > i {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      z-index: 1;
+      transform: translateY(-50%);
+      color: var(--teal);
+      font-size: 14px;
+      pointer-events: none;
+    }
+
+    #authModal .auth-input-wrap input {
+      padding: 12px 13px 12px 40px;
+      border-radius: 10px;
+      background: #fbfdfd;
+    }
+
+    #authModal .password-field .auth-input-wrap input {
+      padding-right: 44px;
+    }
+
+    #authModal .password-field button {
+      z-index: 2;
+    }
+
+    #authModal .auth-options {
+      min-height: 20px;
+    }
+
+    #authModal .check-row {
+      font-size: 12px;
+    }
+
+    #authModal .check-row input {
+      accent-color: var(--teal);
+    }
+
+    #authModal .btn-primary {
+      min-height: 48px;
+      border-radius: 10px;
+      box-shadow: 0 9px 18px rgba(8,127,140,.18);
+    }
+
+    #authModal .auth-divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #91a2ad;
+      font-size: 11px;
+      margin: 2px 0 0;
+    }
+
+    #authModal .auth-divider::before,
+    #authModal .auth-divider::after {
+      content: "";
+      height: 1px;
+      flex: 1;
+      background: var(--line);
+    }
+
+    #authModal .auth-socials {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 8px;
+    }
+
+    #authModal .auth-socials button {
+      min-height: 42px;
+      padding: 8px 5px;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      background: #fff;
+      color: var(--ink);
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    #authModal .auth-socials button:hover {
+      border-color: #9ed9d5;
+      background: #f5fbfb;
+      transform: translateY(-2px);
+    }
+
+    #authModal .auth-socials i {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 15px;
+      color: var(--teal);
+    }
+
+    #authModal .auth-socials button:nth-child(2) i {
+      color: #1877f2;
+    }
+
+    #authModal .auth-socials button:nth-child(3) i {
+      color: #111;
+    }
+
+    #authModal .auth-switch {
+      font-size: 12px;
+      margin: 0;
+      text-align: center;
+    }
+
+    #authModal .auth-message {
+      min-height: 17px;
+    }
+
+    #authModal.auth-modal-signup .auth-visual {
+      order: 2;
+      border-radius: 0 24px 24px 0;
+      background-image:
+        linear-gradient(
+          180deg,
+          rgba(6,97,107,.12),
+          rgba(7,42,57,.88)
+        ),
+        url('female_doctor.jpg');
+      background-position: center 18%;
+    }
+
+    #authModal.auth-modal-signup .auth-form-panel {
+      order: 1;
+    }
+
+    #authModal.auth-modal-signup .auth-tabs {
+      left: 54px;
+      right: auto;
+    }
+
+    #authModal.auth-modal-signup .auth-form-panel h2 {
+      font-size: 29px;
+    }
+
+
+    @keyframes auth-modal-in {
+      from {
+        opacity: 0;
+        transform: translateY(14px) scale(.985);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+
+    @media(max-width:900px) {
+
+      #authModal .auth-content {
+        width: min(760px,100%);
+      }
+
+      #authModal .auth-layout {
+        grid-template-columns: 40% 60%;
+      }
+
+      #authModal .auth-form-panel {
+        padding-left: 34px;
+        padding-right: 34px;
+      }
+
+      #authModal .auth-tabs {
+        right: 34px;
+      }
+
+      #authModal.auth-modal-signup .auth-tabs {
+        left: 34px;
+      }
+
+    }
+
+
+    @media(max-width:760px) {
+
+      #authModal .auth-content {
+        max-height: calc(100vh - 20px);
+        border-radius: 16px;
+      }
+
+      #authModal .auth-layout {
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+      }
+
+      #authModal .auth-visual,
+      #authModal.auth-modal-signup .auth-visual {
+        order: 0;
+        min-height: 158px;
+        padding: 24px;
+        border-radius: 16px 16px 0 0;
+        background-position: center 18%;
+      }
+
+      #authModal .auth-visual-copy h3 {
+        font-size: 24px;
+      }
+
+      #authModal .auth-visual-copy p:not(.eyebrow) {
+        font-size: 12px;
+      }
+
+      #authModal .auth-visual-copy ul {
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 6px;
+        font-size: 10px;
+        margin-top: 12px;
+      }
+
+      #authModal .auth-form-panel,
+      #authModal.auth-modal-signup .auth-form-panel {
+        order: 1;
+        padding: 52px 22px 24px;
+      }
+
+      #authModal .auth-tabs,
+      #authModal.auth-modal-signup .auth-tabs {
+        position: static;
+        width: auto;
+        margin: 0 22px;
+        transform: translateY(18px);
+      }
+
+      #authModal .auth-socials {
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+
+      #authModal .auth-socials button {
+        font-size: 10px;
+      }
+
+      #authModal.auth-modal-signup .auth-visual {
+        min-height: 205px;
+      }
+
+    }
+
+
+    @media(max-width:390px) {
+
+      #authModal .auth-visual {
+        min-height: 142px;
+        padding: 20px;
+      }
+
+      #authModal .auth-visual-copy h3 {
+        font-size: 21px;
+      }
+
+      #authModal .auth-visual-copy ul {
+        display: none;
+      }
+
+      #authModal.auth-modal-signup .auth-visual {
+        min-height: 176px;
+      }
+
+      #authModal .auth-form-panel,
+      #authModal.auth-modal-signup .auth-form-panel {
+        padding-left: 18px;
+        padding-right: 18px;
+      }
+
+      #authModal .auth-socials button {
+        font-size: 9px;
+      }
+
+    }
+
+
+    @media(prefers-reduced-motion:reduce) {
+
+      #authModal .auth-content {
+        animation: none;
+      }
+
+      #authModal .auth-socials button {
+        transition: none;
+      }
+
+    }
+
+
+    /* AUTHENTICATION FLOW */
+
+    #authModal .auth-form-panel {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    #authModal .auth-form-panel .auth-tabs {
+      position: static;
+      order: 0;
+      align-self: flex-end;
+      flex: none;
+      width: 190px;
+      margin: 0 32px 28px 0;
+      transform: none;
+    }
+
+    #authModal .auth-form-panel h2 {
+      order: 1;
+      margin: 0;
+    }
+
+    #authModal .auth-form-panel > p {
+      order: 2;
+    }
+
+    #authModal .auth-form-panel form {
+      order: 3;
+    }
+
+    #authModal.auth-modal-signup .auth-form-panel .auth-tabs {
+      left: auto;
+      right: auto;
+    }
+
+    #authToast {
+      position: fixed;
+      right: 24px;
+      bottom: 24px;
+      z-index: 60;
+      max-width: min(360px,calc(100vw - 32px));
+      padding: 13px 17px;
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: 10px;
+      background: #087f8c;
+      color: #fff;
+      box-shadow: 0 14px 34px rgba(6,97,107,.28);
+      font-size: 13px;
+      font-weight: 700;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(12px);
+      transition: opacity .22s ease,transform .22s ease;
+    }
+
+    #authToast.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    @media(max-width:760px) {
+
+      #authModal .auth-form-panel .auth-tabs {
+        align-self: stretch;
+        width: auto;
+        margin: 0 0 25px;
+        transform: none;
+      }
+
+      #authModal .auth-form-panel {
+        overflow: visible;
+      }
+
+      #authToast {
+        right: 16px;
+        bottom: 16px;
+      }
+
+    }
+
+    @media(prefers-reduced-motion:reduce) {
+
+      #authToast {
+        transition: none;
+      }
+
+    }
+
+
+    /* DOCTOR RESULTS */
+
+    #doctor-results {
+      scroll-margin-top: 76px;
+    }
+
+    #doctor-results .section-heading {
+      margin-bottom: 28px;
+    }
+
+    #doctor-results .results-heading h2 {
+      letter-spacing: -.6px;
+    }
+
+    #doctor-results .results-heading > div > p:last-child {
+      font-weight: 600;
+    }
+
+    #doctor-results .result-message {
+      min-height: 76px;
+      border: 1px solid rgba(8,127,140,.1);
+      box-shadow: 0 8px 22px rgba(20,55,75,.04);
+    }
+
+    #doctor-results .result-message.empty {
+      background: #f0f8f8;
+      color: var(--teal-dark);
+    }
+
+    #doctor-results .result-message.empty i {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: #d9f1ef;
+    }
+
+    #doctor-results .loading-spinner {
+      min-height: 76px;
+      padding: 20px 22px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fff;
+      box-shadow: 0 8px 22px rgba(20,55,75,.05);
+    }
+
+    #doctor-results .doctor-container {
+      opacity: 1 !important;
+      transform: none !important;
+      visibility: visible !important;
+      display: grid !important;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 24px;
+      margin-top: 24px;
+      margin-bottom: 40px;
+    }
+
+    #doctor-results .doctor-container.results-arrived {
+      opacity: 1 !important;
+      transform: none !important;
+      visibility: visible !important;
+    }
+
+    #doctor-results .doctor-card {
+      border: 1px solid #dce8eb;
+      box-shadow: 0 12px 30px rgba(20,55,75,.08);
+      transition:
+        transform .25s ease,
+        box-shadow .25s ease,
+        border-color .25s ease;
+    }
+
+    #doctor-results .doctor-card:hover {
+      border-color: #a8d8d5;
+      box-shadow: 0 20px 42px rgba(20,55,75,.14);
+    }
+
+    #doctor-results .doctor-image-wrap {
+      position: relative;
+      overflow: hidden;
+      height: 208px;
+      background:
+        linear-gradient(
+          145deg,
+          #e4f5f3,
+          #eff7f8
+        );
+    }
+
+    #doctor-results .doctor-image {
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: center 22%;
+      transition: transform .45s ease;
+    }
+
+    #doctor-results .doctor-card:hover .doctor-image {
+      transform: scale(1.04);
+    }
+
+    #doctor-results .doctor-image.placeholder-image {
+      object-fit: contain;
+      padding: 30px 30px 15px;
+      opacity: .72;
+    }
+
+    #doctor-results .image-label {
+      position: absolute;
+      left: 14px;
+      bottom: 12px;
+      padding: 5px 8px;
+      border-radius: 5px;
+      background: rgba(16,42,67,.72);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .2px;
+    }
+
+    #doctor-results .doctor-info {
+      padding: 22px 21px 20px;
+    }
+
+    #doctor-results .doctor-top {
+      align-items: flex-start;
+    }
+
+    #doctor-results .doctor-info h3 {
+      font-size: 20px;
+    }
+
+    #doctor-results .specialization {
+      margin: 7px 0 17px;
+    }
+
+    #doctor-results .doctor-details {
+      gap: 11px;
+      padding-top: 15px;
+      border-top: 1px solid #edf2f3;
+    }
+
+    #doctor-results .doctor-details > div {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      color: var(--teal);
+      font-size: 13px;
+    }
+
+    #doctor-results .doctor-details > div > i {
+      width: 16px;
+      margin-top: 3px;
+      text-align: center;
+    }
+
+    #doctor-results .doctor-details span {
+      display: grid;
+      gap: 1px;
+      color: var(--muted);
+      line-height: 1.35;
+    }
+
+    #doctor-results .doctor-details b {
+      color: var(--ink);
+      font-size: 11px;
+      letter-spacing: .2px;
+    }
+
+    #doctor-results .doctor-actions {
+      margin-top: 21px;
+    }
+
+    #doctor-results .btn-book.is-unavailable,
+    #doctor-results .btn-book:disabled {
+      border-color: #e1e8ea;
+      background: #f2f5f5;
+      color: #91a0a5;
+      cursor: not-allowed;
+      transform: none;
+      opacity: 1;
+    }
+
+    @media(max-width:760px) {
+
+      #doctor-results .doctor-image-wrap {
+        height: 190px;
+      }
+
+      #doctor-results .results-heading h2 {
+        font-size: 31px;
+      }
+
+    }
+
+    @media(prefers-reduced-motion:reduce) {
+
+      #doctor-results .doctor-container {
+        transition: none;
+      }
+
+      #doctor-results .doctor-image {
+        transition: none;
+      }
+
+      #doctor-results .doctor-card {
+        transition: none;
+      }
+
+    }
+
+
+    /* DOCTOR DETAILS MODAL */
+
+    #doctorModal {
+      background: rgba(8,29,43,.72);
+      backdrop-filter: blur(8px);
+    }
+
+    #doctorModal .modal-content {
+      width: min(820px,100%);
+      max-height: calc(100vh - 32px);
+      overflow: auto;
+      padding: 24px;
+      background: #fff;
+      border: 1px solid rgba(255,255,255,.6);
+      border-radius: 22px;
+      box-shadow: 0 28px 90px rgba(4,24,38,.35);
+      animation: doctor-modal-in .3s ease both;
+    }
+
+    #doctorModal .modal-close {
+      position: sticky;
+      top: -12px;
+      z-index: 5;
+      float: right;
+      width: 34px;
+      height: 34px;
+      margin: -10px -9px 0 0;
+      border-radius: 50%;
+      background: #f1f7f7;
+      color: var(--ink);
+      font-size: 15px;
+    }
+
+    #doctorModal .modal-close:hover {
+      background: var(--mint);
+      color: var(--teal);
+    }
+
+    #doctorModal .doctor-modal-profile {
+      clear: both;
+      padding: 8px 4px 3px;
+    }
+
+    #doctorModal .doctor-modal-hero {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      padding: 8px 6px 25px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    #doctorModal .doctor-modal-image-wrap {
+      width: 132px;
+      height: 132px;
+      flex: none;
+      overflow: hidden;
+      border: 5px solid #e3f3f1;
+      border-radius: 20px;
+      background:
+        linear-gradient(
+          145deg,
+          #e4f5f3,
+          #eff7f8
+        );
+    }
+
+    #doctorModal .doctor-modal-image {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: center 20%;
+    }
+
+    #doctorModal .doctor-modal-image.placeholder-image {
+      object-fit: contain;
+      padding: 20px;
+      opacity: .72;
+    }
+
+    #doctorModal .doctor-modal-identity h2 {
+      color: var(--navy);
+      font-size: 30px;
+      letter-spacing: -.4px;
+    }
+
+    #doctorModal .doctor-modal-specialization {
+      color: var(--teal);
+      font-size: 15px;
+      font-weight: 700;
+      margin: 7px 0 12px;
+    }
+
+    #doctorModal .doctor-modal-sections {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    #doctorModal .doctor-modal-section {
+      padding: 18px;
+      border: 1px solid #e1ecee;
+      border-radius: 13px;
+      background: #fbfdfd;
+      box-shadow: 0 6px 16px rgba(20,55,75,.04);
+    }
+
+    #doctorModal .doctor-modal-section h3 {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--teal);
+      font-size: 14px;
+      margin-bottom: 14px;
+    }
+
+    #doctorModal .doctor-modal-section h3 i {
+      width: 18px;
+      text-align: center;
+    }
+
+    #doctorModal .doctor-modal-facts {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 13px 16px;
+    }
+
+    #doctorModal .doctor-modal-facts p {
+      display: grid;
+      gap: 3px;
+      margin: 0;
+      min-width: 0;
+    }
+
+    #doctorModal .doctor-modal-facts p.fact-wide {
+      grid-column: 1/-1;
+    }
+
+    #doctorModal .doctor-modal-facts strong {
+      color: var(--ink);
+      font-size: 11px;
+      letter-spacing: .2px;
+    }
+
+    #doctorModal .doctor-modal-facts span,
+    #doctorModal .doctor-modal-value {
+      color: var(--muted);
+      font-size: 13px;
+      overflow-wrap: anywhere;
+    }
+
+    #doctorModal .doctor-modal-section:nth-child(5) {
+      border-color: #b9dfdc;
+      background: #f3fbfa;
+    }
+
+    #doctorModal .doctor-modal-actions {
+      margin-top: 16px;
+    }
+
+    #doctorModal .doctor-modal-actions .btn {
+      width: 100%;
+      min-height: 42px;
+    }
+
+    #doctorModal .doctor-modal-actions button:disabled {
+      background: #edf2f2;
+      color: #8c9ca0;
+      box-shadow: none;
+      cursor: not-allowed;
+    }
+
+    #doctorModal .doctor-modal-verification {
+      grid-column: 1/-1;
+      background: #f5f9fa;
+    }
+
+    #doctorModal .doctor-source-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      margin-top: 16px;
+      color: var(--teal);
+      font-size: 12px;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    #doctorModal .doctor-source-link:hover {
+      text-decoration: underline;
+    }
+
+    @keyframes doctor-modal-in {
+
+      from {
+        opacity: 0;
+        transform: translateY(12px) scale(.98);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+
+    }
+
+    @media(max-width:640px) {
+
+      #doctorModal {
+        padding: 10px;
+      }
+
+      #doctorModal .modal-content {
+        max-height: calc(100vh - 20px);
+        padding: 18px 14px;
+        border-radius: 16px;
+      }
+
+      #doctorModal .doctor-modal-hero {
+        align-items: flex-start;
+        gap: 14px;
+        padding: 6px 4px 20px;
+      }
+
+      #doctorModal .doctor-modal-image-wrap {
+        width: 96px;
+        height: 96px;
+        border-radius: 15px;
+      }
+
+      #doctorModal .doctor-modal-identity h2 {
+        font-size: 23px;
+      }
+
+      #doctorModal .doctor-modal-specialization {
+        font-size: 13px;
+      }
+
+      #doctorModal .doctor-modal-sections {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        margin-top: 12px;
+      }
+
+      #doctorModal .doctor-modal-section {
+        padding: 15px;
+      }
+
+      #doctorModal .doctor-modal-verification {
+        grid-column: auto;
+      }
+
+    }
+
+    @media(max-width:390px) {
+
+      #doctorModal .doctor-modal-hero {
+        display: block;
+      }
+
+      #doctorModal .doctor-modal-image-wrap {
+        width: 86px;
+        height: 86px;
+        margin-bottom: 12px;
+      }
+
+      #doctorModal .doctor-modal-identity h2 {
+        font-size: 21px;
+      }
+
+      #doctorModal .doctor-modal-facts {
+        grid-template-columns: 1fr;
+      }
+
+    }
+
+    @media(prefers-reduced-motion:reduce) {
+
+      #doctorModal .modal-content {
+        animation: none;
+      }
+
+    }
+
+
+    /* APPOINTMENT REQUEST MODAL */
+
+    #requestModal {
+      background: rgba(8,29,43,.72);
+      backdrop-filter: blur(8px);
+    }
+
+    #requestModal .request-modal-content,
+    #requestSuccessModal .request-success-card {
+      position: relative;
+      width: min(720px,100%);
+      max-height: calc(100vh - 32px);
+      overflow: auto;
+      padding: 32px;
+      border: 1px solid rgba(255,255,255,.6);
+      border-radius: 20px;
+      background: #fff;
+      box-shadow: 0 28px 90px rgba(4,24,38,.35);
+      animation: request-modal-in .3s ease both;
+    }
+
+    #requestModal .modal-close,
+    #requestSuccessModal .modal-close {
+      position: sticky;
+      top: -16px;
+      z-index: 5;
+      float: right;
+      width: 34px;
+      height: 34px;
+      margin: -18px -16px 0 0;
+      border: 0;
+      border-radius: 50%;
+      background: #f1f7f7;
+      color: var(--ink);
+      font-size: 15px;
+    }
+
+    #requestModal .modal-close:hover,
+    #requestSuccessModal .modal-close:hover {
+      background: var(--mint);
+      color: var(--teal);
+    }
+
+    .request-modal-heading {
+      clear: both;
+      padding: 8px 0 20px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .request-modal-heading h2 {
+      font-size: 32px;
+      color: var(--navy);
+    }
+
+    .request-modal-heading > p:last-child {
+      max-width: 580px;
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 9px;
+    }
+
+    .request-doctor-summary {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 18px 0;
+      padding: 13px 15px;
+      border: 1px solid #b9dfdc;
+      border-radius: 10px;
+      background: #f1fbfa;
+      color: var(--teal);
+    }
+
+    .request-doctor-summary > i {
+      font-size: 20px;
+    }
+
+    .request-doctor-summary span {
+      display: grid;
+      gap: 2px;
+    }
+
+    .request-doctor-summary strong {
+      color: var(--muted);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: .8px;
+    }
+
+    .request-doctor-summary b {
+      color: var(--ink);
+      font-size: 14px;
+    }
+
+    #requestFormSlot #appointmentForm {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 0;
+    }
+
+    #requestFormSlot .form-field {
+      gap: 7px;
+    }
+
+    .request-modal .form-field label {
+      color: var(--ink);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .request-modal .form-field input,
+    .request-modal .form-field textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      padding: 12px 13px;
+      background: #fbfdfd;
+      color: var(--ink);
+    }
+
+    .request-modal .form-field input:focus,
+    .request-modal .form-field textarea:focus {
+      border-color: var(--teal);
+      box-shadow: 0 0 0 3px rgba(8,127,140,.12);
+      outline: 0;
+    }
+
+    #requestFormSlot .form-field-wide,
+    #requestFormSlot .form-submit {
+      grid-column: 1/-1;
+    }
+
+    .request-modal .form-submit {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-top: 3px;
+    }
+
+    .request-modal .appointment-message {
+      font-size: 12px;
+    }
+
+    .request-modal .appointment-message.error {
+      color: #a23a2d;
+    }
+
+    .request-modal .appointment-message.success {
+      color: #247044;
+    }
+
+    .request-success-card {
+      text-align: center;
+    }
+
+    .request-success-card h2 {
+      color: var(--navy);
+      font-size: 31px;
+      margin: 10px 0 8px;
+    }
+
+    .request-success-card > p {
+      max-width: 500px;
+      margin: 8px auto 22px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .request-success-icon {
+      width: 54px;
+      height: 54px;
+      margin: 4px auto;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: #e8f6ee;
+      color: #247044;
+      font-size: 24px;
+    }
+
+    .request-success-lead {
+      display: block;
+      color: var(--teal);
+      font-size: 14px;
+    }
+
+    .request-success-details {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      text-align: left;
+      margin: 20px 0 24px;
+    }
+
+    .request-success-details p {
+      display: grid;
+      gap: 3px;
+      margin: 0;
+      padding: 12px;
+      border-radius: 8px;
+      background: #f5f9fa;
+    }
+
+    .request-success-details strong {
+      color: var(--muted);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: .6px;
+    }
+
+    .request-success-details span {
+      color: var(--ink);
+      font-size: 13px;
+    }
+
+    .request-success-card > .btn {
+      min-width: 130px;
+    }
+
+    @keyframes request-modal-in {
+
+      from {
+        opacity: 0;
+        transform: translateY(12px) scale(.98);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+
+    }
+
+    @media(max-width:600px) {
+
+      #requestModal .request-modal-content,
+      #requestSuccessModal .request-success-card {
+        max-height: calc(100vh - 20px);
+        padding: 22px 17px;
+        border-radius: 16px;
+      }
+
+      #requestFormSlot #appointmentForm {
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+
+      .request-modal-heading h2 {
+        font-size: 27px;
+      }
+
+      .request-doctor-summary {
+        margin: 14px 0;
+      }
+
+      .request-modal .form-field-wide,
+      .request-modal .form-submit {
+        grid-column: auto;
+      }
+
+      .request-modal .form-submit {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .request-modal .form-submit .btn {
+        width: 100%;
+      }
+
+      .request-success-details {
+        grid-template-columns: 1fr;
+      }
+
+      .request-success-card h2 {
+        font-size: 27px;
+      }
+
+    }
+
+    @media(prefers-reduced-motion:reduce) {
+
+      #requestModal .request-modal-content,
+      #requestSuccessModal .request-success-card {
+        animation: none;
+      }
+
+    }
+
+
+    /* DEPENDENT LOCATION SEARCH */
+
+    .search-form select {
+      width: 100%;
+      min-height: 46px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px 38px 12px 13px;
+      background: #fff;
+      color: var(--ink);
+      outline: none;
+      appearance: auto;
+    }
+
+    .search-form select:focus {
+      border-color: var(--teal);
+      box-shadow: 0 0 0 3px rgba(8,127,140,.12);
+    }
+
+    .search-form select:disabled {
+      background: #f1f5f5;
+      color: #91a0a5;
+      cursor: not-allowed;
+    }
+
+    .search-form .field-help {
+      display: block;
+      margin-top: -2px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .search-form .field em {
+      font-style: normal;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    @media(max-width:480px) {
+
+      .search-form select {
+        min-height: 48px;
+      }
+
+      .search-form .field-help {
+        font-size: 10px;
+      }
+
+    }
+
+  </style>
+
+
+  <!-- ================= SCRIPTS ================= -->
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+  <script src="data/india-cities.js"></script>
+
+  <script src="script.js?v=3"></script>
+
+</body>
+</html>

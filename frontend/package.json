@@ -1,0 +1,16 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "description": "DoctorFinder Frontend",
+  "main": "dev-server.js",
+  "scripts": {
+    "start": "node dev-server.js",
+    "dev": "node dev-server.js"
+  },
+  "keywords": [
+    "frontend",
+    "doctorfinder"
+  ],
+  "author": "",
+  "license": "ISC"
+}

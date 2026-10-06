@@ -1,0 +1,24 @@
+{
+  "name": "doctorfinder-platform",
+  "version": "2.0.0",
+  "description": "DoctorFinder — Professional Doctor Discovery & Appointment Platform",
+  "scripts": {
+    "start": "npm --prefix backend start",
+    "dev": "npm --prefix backend run dev",
+    "dev:backend": "npm --prefix backend run dev",
+    "dev:frontend": "npm --prefix frontend run dev",
+    "test": "npm --prefix backend test",
+    "test:ui": "npm --prefix backend run test:ui",
+    "import-doctors": "npm --prefix backend run import-doctors"
+  },
+  "keywords": [
+    "healthcare",
+    "doctor-discovery",
+    "appointments",
+    "leaflet",
+    "gemini-ai",
+    "mongodb"
+  ],
+  "author": "",
+  "license": "ISC"
+}
