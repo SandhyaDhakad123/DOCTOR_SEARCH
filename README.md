@@ -104,7 +104,7 @@ https://doctor-search-t5rm.onrender.com
 
 ## 📁 Project Structure
 
-```text
+
 DOCTOR_SEARCH/
 │
 ├── backend/
@@ -143,4 +143,125 @@ DOCTOR_SEARCH/
 │   └── package.json
 │
 ├── README.md
-└── package.json
+└── package.json 
+
+
+🚀 Installation & Setup
+1. Clone the Repository
+git clone https://github.com/SandhyaDhakad123/DOCTOR_SEARCH.git
+cd DOCTOR_SEARCH
+
+2. Backend Setup
+cd backend
+npm install
+
+Create a .env file inside the backend folder:
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret
+GEMINI_API_KEY=your_gemini_api_key
+PORT=5001
+
+3. Start Backend
+node server.js
+
+Backend will run locally on:
+http://localhost:5001
+
+4. Frontend
+Open the frontend/index.html file in your browser or use a local development server.
+🔌 API Endpoints
+Authentication
+POST /api/auth/register
+POST /api/auth/login
+
+Doctors
+GET /api/doctors
+
+Appointments
+POST /api/appointments
+GET /api/appointments
+
+Favorites
+GET /api/favorites
+POST /api/favorites
+DELETE /api/favorites/:id
+
+Reviews
+GET /api/reviews
+POST /api/reviews
+
+AI
+POST /api/ai
+
+Health
+GET /api/health-wellness
+
+Server Health Check
+GET /api/health
+
+🔒 Security
+- JWT authentication
+- Protected API routes
+- Environment variables for sensitive credentials
+- CORS configuration
+- Passwords are not stored in frontend code
+- API keys are kept on the backend
+Never commit .env files or API keys to GitHub.
+
+📊 Doctor Data
+DoctorFinder uses verified doctor information collected from traceable sources.
+The platform is designed to support doctor discovery across India based on the available verified data.
+Doctor records may include:
+- Doctor Name
+- Registration Number
+- Registration Year
+- Registered Council
+- Qualifications
+- Specialization
+- Sub-specialization
+- State
+- City
+- District
+- Hospital/Clinic
+- Clinic Address
+- Consultation Fee
+- Phone
+- Email
+- Available Days
+- Available Time Slots
+- Appointment Availability
+- Data Source
+- 
+🎯 Project Objective
+The main objective of DoctorFinder is to provide users with a simple and accessible platform for discovering doctors and healthcare information.
+The application combines:
+- Doctor discovery
+- Location-based search
+- AI assistance
+- Authentication
+- Reviews
+- Favorites
+- Appointment requests
+- Health resources
+into a single platform.
+
+🔮 Future Improvements
+- Expand the verified doctor database
+- Online video consultation
+- Real-time appointment availability
+- Online payment integration
+- Doctor dashboard
+- Patient medical history
+- Improved AI health assistance
+- Mobile application
+- Advanced doctor recommendation system
+- 
+👩‍💻 Developer
+Sandhya Dhakad
+B.Tech CSE (AI & ML)
+Oriental Institute of Science and Technology, Bhopal
+GitHub
+https://github.com/SandhyaDhakad123
+
+📜 License
+This project is developed for educational and portfolio purposes.
