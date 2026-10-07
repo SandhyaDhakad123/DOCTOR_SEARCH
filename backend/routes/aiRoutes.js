@@ -177,7 +177,10 @@ router.post("/recommend", requireAuth, async (req, res) => {
 
     const matchingDoctors = await Doctor.find({
       verificationStatus: "verified",
-      specialization: { $in: regexQueries }
+      $or: [
+        { specialization: { $in: regexQueries } },
+        { subSpecialization: { $in: regexQueries } }
+      ]
     })
       .select("-__v")
       .limit(10)

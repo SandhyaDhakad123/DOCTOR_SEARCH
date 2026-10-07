@@ -132,6 +132,7 @@ function initApp() {
   restoreSession();
   checkRouteGuard();
   loadHealthWellnessArticles();
+  loadDynamicFilters();
 }
 
 if (document.readyState === "complete" || document.readyState === "interactive") {
@@ -507,10 +508,14 @@ function setupAutocomplete(inputId, dropdownId, type) {
     if (!isAuthenticated()) return;
 
     try {
+      const stateVal = $("searchByState")?.value?.trim() || "";
+      const cityVal = $("searchByCity")?.value?.trim() || "";
+      const stateParam = stateVal ? `&state=${encodeURIComponent(stateVal)}` : "";
+      const cityParam = cityVal ? `&city=${encodeURIComponent(cityVal)}` : "";
       const res = await fetch(
         `${API_BASE_URL}/doctors/autocomplete?q=${encodeURIComponent(
           q
-        )}&type=${type}`,
+        )}&type=${type}${stateParam}${cityParam}`,
         { headers: getAuthHeaders() }
       );
       if (!res.ok) return;
@@ -676,12 +681,6 @@ async function performSearch() {
   const rating = $("filterRating") ? $("filterRating").value : "";
   const sortBy = $("sortBy") ? $("sortBy").value : "name_asc";
 
-  if (!state && !currentUserLocation && !city && !specialization && !name && !hospital) {
-    showResultMessage("Please select a location or enter search keywords (specialization, doctor name, hospital).", "error");
-    $("searchByState").focus();
-    return;
-  }
-
   setLoading(true);
   $("doctorContainer").replaceChildren();
 
@@ -743,13 +742,25 @@ async function performSearch() {
     }
 
     currentDoctors = data.data || [];
-    const location = city ? `${city}, ${state}` : state || "your search";
 
-    $("resultsTitle").textContent = specialization
-      ? `${specialization} Doctors`
-      : state || city
-      ? `Doctors in ${location}`
-      : "Filtered Doctors";
+    let resultTitle = "All Verified Doctors Across India";
+    if (specialization) {
+      resultTitle = `${specialization} Doctors`;
+      if (city) resultTitle += ` in ${city}`;
+      else if (state) resultTitle += ` in ${state}`;
+    } else if (hospital) {
+      resultTitle = `Doctors at ${hospital}`;
+    } else if (name) {
+      resultTitle = `Doctors matching "${name}"`;
+    } else if (city && state) {
+      resultTitle = `Doctors in ${city}, ${state}`;
+    } else if (city) {
+      resultTitle = `Doctors in ${city}`;
+    } else if (state) {
+      resultTitle = `Doctors in ${state}`;
+    }
+
+    $("resultsTitle").textContent = resultTitle;
 
     $("resultsCount").textContent = `${currentDoctors.length} verified doctor${
       currentDoctors.length === 1 ? "" : "s"
@@ -1032,8 +1043,8 @@ function initLeafletMap() {
   const mapEl = $("doctorMap");
   if (!mapEl || typeof L === "undefined") return;
 
-  // Default center at central India / Bhopal
-  leafletMap = L.map("doctorMap").setView([23.2599, 77.4126], 12);
+  // Default center across India
+  leafletMap = L.map("doctorMap").setView([20.5937, 78.9629], 5);
 
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     maxZoom: 19,
@@ -3072,24 +3083,112 @@ function showResultMessage(message, type) {
 
 /*
 |--------------------------------------------------------------------------
-| LOCATION SELECTOR INITIALIZATION
+| LOCATION SELECTOR & DYNAMIC FILTERS INITIALIZATION
 |--------------------------------------------------------------------------
 */
+let verifiedFilterMetadata = {
+  states: [],
+  cities: [],
+  specializations: [],
+  hospitals: [],
+  doctorNames: [],
+  totalVerifiedDoctors: 0
+};
+
+async function loadDynamicFilters() {
+  try {
+    const res = await fetch(`${API_BASE_URL}/doctors/filters`, {
+      headers: getAuthHeaders()
+    });
+    if (!res.ok) return;
+    const json = await res.json();
+    if (json.success && json.data) {
+      verifiedFilterMetadata = json.data;
+      refreshLocationDropdowns();
+    }
+  } catch (err) {
+    console.warn("Unable to load dynamic filters from server:", err);
+  }
+}
+
+function refreshLocationDropdowns() {
+  const stateSelect = $("searchByState");
+  if (!stateSelect) return;
+
+  const currentSelectedState = stateSelect.value;
+  stateSelect.replaceChildren();
+
+  const allStatesOption = document.createElement("option");
+  allStatesOption.value = "";
+  allStatesOption.textContent = "All States (Across India)";
+  stateSelect.appendChild(allStatesOption);
+
+  const verifiedStatesSet = new Set(verifiedFilterMetadata.states || []);
+
+  const combinedStates = Array.from(
+    new Set([...(verifiedFilterMetadata.states || []), ...INDIA_STATES_AND_UTS])
+  ).sort((a, b) => a.localeCompare(b));
+
+  combinedStates.forEach((state) => {
+    const option = document.createElement("option");
+    option.value = state;
+    if (verifiedStatesSet.has(state)) {
+      option.textContent = `${state} (Verified Doctors)`;
+    } else {
+      option.textContent = state;
+    }
+    stateSelect.appendChild(option);
+  });
+
+  if (currentSelectedState) {
+    stateSelect.value = currentSelectedState;
+  }
+
+  populateCitiesForState(stateSelect.value);
+}
+
 function initializeLocationSearch() {
   const stateSelect = $("searchByState");
   const citySelect = $("searchByCity");
   if (!stateSelect || !citySelect) return;
 
-  INDIA_STATES_AND_UTS.forEach((state) => {
-    const option = document.createElement("option");
-    option.value = state;
-    option.textContent = state;
-    stateSelect.appendChild(option);
+  refreshLocationDropdowns();
+
+  stateSelect.addEventListener("change", async () => {
+    const selectedState = stateSelect.value;
+    populateCitiesForState(selectedState);
+    if (selectedState) {
+      try {
+        const res = await fetch(
+          `${API_BASE_URL}/doctors/filters?state=${encodeURIComponent(selectedState)}`,
+          { headers: getAuthHeaders() }
+        );
+        if (res.ok) {
+          const json = await res.json();
+          if (json.success && json.data?.cities?.length) {
+            const verifiedCitiesForState = new Set(json.data.cities);
+            Array.from(citySelect.options).forEach((opt) => {
+              if (opt.value && verifiedCitiesForState.has(opt.value)) {
+                opt.textContent = `${opt.value} (Verified Doctors)`;
+              }
+            });
+          }
+        }
+      } catch (e) {}
+    }
   });
 
-  stateSelect.addEventListener("change", () =>
-    populateCitiesForState(stateSelect.value)
-  );
+  citySelect.addEventListener("change", () => {
+    const chosenCity = citySelect.value;
+    if (chosenCity && !stateSelect.value && window.INDIA_CITY_DATA) {
+      const match = window.INDIA_CITY_DATA.find(
+        (c) => c.name && c.name.toLowerCase() === chosenCity.toLowerCase()
+      );
+      if (match && match.state) {
+        stateSelect.value = match.state;
+      }
+    }
+  });
 
   populateCitiesForState("");
 }
@@ -3098,40 +3197,52 @@ function populateCitiesForState(state) {
   const citySelect = $("searchByCity");
   if (!citySelect) return;
 
+  const currentVal = citySelect.value;
   citySelect.replaceChildren();
   const placeholder = document.createElement("option");
   placeholder.value = "";
-  placeholder.textContent = state ? "Select City" : "Select State first";
   citySelect.appendChild(placeholder);
-  citySelect.value = "";
 
   if (!state) {
-    citySelect.disabled = true;
+    placeholder.textContent = "All Cities (Across India)";
+    const verifiedCities = (verifiedFilterMetadata.cities || []).filter(Boolean);
+    verifiedCities.forEach((city) => {
+      const option = document.createElement("option");
+      option.value = city;
+      option.textContent = `${city} (Verified Doctors)`;
+      citySelect.appendChild(option);
+    });
+    citySelect.disabled = false;
+    citySelect.value = currentVal && verifiedCities.includes(currentVal) ? currentVal : "";
     return;
   }
+
+  placeholder.textContent = `All Cities in ${state}`;
 
   const datasetState = LOCATION_STATE_ALIASES[state] || state;
   const stateNamesToMatch = new Set([state, datasetState]);
 
-  const cities = [
-    ...new Set(
-      (window.INDIA_CITY_DATA || [])
-        .filter((entry) => stateNamesToMatch.has(entry.state?.trim()))
-        .map((entry) => entry.name?.trim())
-        .filter(Boolean)
-    )
+  const staticCities = (window.INDIA_CITY_DATA || [])
+    .filter((entry) => stateNamesToMatch.has(entry.state?.trim()))
+    .map((entry) => entry.name?.trim())
+    .filter(Boolean);
+
+  const allCities = [
+    ...new Set([...staticCities])
   ].sort((a, b) => a.localeCompare(b));
 
-  cities.forEach((city) => {
+  allCities.forEach((city) => {
     const option = document.createElement("option");
     option.value = city;
     option.textContent = city;
     citySelect.appendChild(option);
   });
 
-  citySelect.disabled = cities.length === 0;
-  if (!cities.length) {
-    placeholder.textContent = "No cities available";
+  citySelect.disabled = allCities.length === 0;
+  if (!allCities.length) {
+    placeholder.textContent = `All Cities in ${state}`;
+  } else {
+    citySelect.value = currentVal && allCities.includes(currentVal) ? currentVal : "";
   }
 }
 
@@ -3462,6 +3573,9 @@ function updateUIForAuthState(user) {
   }
 
   updateAuthNav(loggedIn ? user : null);
+  if (loggedIn) {
+    loadDynamicFilters();
+  }
 }
 
 function updateAuthNav(user) {

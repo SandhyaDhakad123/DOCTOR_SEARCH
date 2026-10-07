@@ -129,6 +129,46 @@ async function runTestSuite() {
   const sampleDoctor = searchData.data[0];
   console.log(`  Sample Doctor: ${sampleDoctor.name} (${sampleDoctor.specialization}) at ${sampleDoctor.hospitalOrClinic}`);
 
+  // Test Dynamic Filter Options endpoint
+  const filterRes = await fetch(`${baseUrl}/doctors/filters`, {
+    headers: { Authorization: `Bearer ${userToken}` }
+  });
+  const filterData = await filterRes.json();
+  if (!filterData.success || !filterData.data.states.length) throw new Error("Expected filter options with states");
+  console.log(`✓ /api/doctors/filters returned ${filterData.data.states.length} states, ${filterData.data.cities.length} cities, ${filterData.data.totalVerifiedDoctors} verified doctors across India`);
+
+  // Test Pan-India Search (all states, no query filters)
+  const allIndiaRes = await fetch(`${baseUrl}/doctors`, {
+    headers: { Authorization: `Bearer ${userToken}` }
+  });
+  const allIndiaData = await allIndiaRes.json();
+  console.log(`✓ /api/doctors (All India) returned ${allIndiaData.count} verified doctors`);
+  if (allIndiaData.count < 30) throw new Error("Expected 30+ verified doctors across India");
+
+  // Test Delhi search
+  const delhiRes = await fetch(`${baseUrl}/doctors?state=Delhi`, {
+    headers: { Authorization: `Bearer ${userToken}` }
+  });
+  const delhiData = await delhiRes.json();
+  console.log(`✓ /api/doctors (Delhi) returned ${delhiData.count} verified doctors`);
+  if (delhiData.count === 0) throw new Error("Expected verified doctors in Delhi");
+
+  // Test Maharashtra search
+  const mahaRes = await fetch(`${baseUrl}/doctors?state=Maharashtra&city=Mumbai`, {
+    headers: { Authorization: `Bearer ${userToken}` }
+  });
+  const mahaData = await mahaRes.json();
+  console.log(`✓ /api/doctors (Maharashtra/Mumbai) returned ${mahaData.count} verified doctors`);
+  if (mahaData.count === 0) throw new Error("Expected verified doctors in Maharashtra/Mumbai");
+
+  // Test Specialization search across India (Cardiology)
+  const cardioRes = await fetch(`${baseUrl}/doctors?specialization=Cardiology`, {
+    headers: { Authorization: `Bearer ${userToken}` }
+  });
+  const cardioData = await cardioRes.json();
+  console.log(`✓ /api/doctors (Specialization: Cardiology) returned ${cardioData.count} verified doctors across India`);
+  if (cardioData.count === 0) throw new Error("Expected Cardiology doctors across India");
+
   // Autocomplete Test
   const autoRes = await fetch(`${baseUrl}/doctors/autocomplete?q=Gopal`, {
     headers: { Authorization: `Bearer ${userToken}` }

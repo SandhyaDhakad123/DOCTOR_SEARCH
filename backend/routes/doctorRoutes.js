@@ -2,11 +2,15 @@ const express = require("express");
 const Doctor = require("../models/Doctor");
 const Review = require("../models/Review");
 const requireAuth = require("../middleware/authMiddleware");
-const { requireAdmin } = require("../middleware/authMiddleware");
+const { requireAdmin, optionalAuth } = require("../middleware/authMiddleware");
 
 const router = express.Router();
 
 const validVerificationStatuses = ["verified", "pending", "unverified"];
+
+function escapeRegex(text) {
+  return String(text || "").replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+}
 
 function calculateHaversineDistanceKm(lat1, lon1, lat2, lon2) {
   if (
@@ -66,29 +70,92 @@ const MASTER_SPECIALIZATIONS = [
 
 /*
 |--------------------------------------------------------------------------
+| GET Dynamic Filter Options (Optional Auth)
+| URL: /api/doctors/filters?state=...&city=...
+|--------------------------------------------------------------------------
+*/
+router.get("/filters", optionalAuth, async (req, res) => {
+  try {
+    const { state, city } = req.query;
+    const baseFilter = { verificationStatus: "verified" };
+
+    const scopedFilter = { ...baseFilter };
+    if (state && state.trim()) {
+      scopedFilter.state = { $regex: new RegExp(`^${escapeRegex(state.trim())}$`, "i") };
+    }
+    if (city && city.trim()) {
+      scopedFilter.city = { $regex: new RegExp(`^${escapeRegex(city.trim())}$`, "i") };
+    }
+
+    // States that currently have verified doctors in the database
+    const states = await Doctor.distinct("state", baseFilter);
+    // Cities scoped by selected state, or all verified cities across India
+    const cities = await Doctor.distinct("city", scopedFilter);
+    // Distinct specializations among verified doctors
+    const dbSpecs = await Doctor.distinct("specialization", scopedFilter);
+    const dbSubSpecs = await Doctor.distinct("subSpecialization", scopedFilter);
+    const combinedSpecs = Array.from(new Set([...dbSpecs.filter(Boolean), ...dbSubSpecs.filter(Boolean)])).sort((a, b) => a.localeCompare(b));
+    // Distinct hospitals
+    const hospitals = (await Doctor.distinct("hospitalOrClinic", scopedFilter)).filter(Boolean).sort((a, b) => a.localeCompare(b));
+    // Distinct doctor names
+    const doctorNames = (await Doctor.distinct("name", scopedFilter)).filter(Boolean).sort((a, b) => a.localeCompare(b));
+
+    const totalVerifiedDoctors = await Doctor.countDocuments(scopedFilter);
+
+    return res.json({
+      success: true,
+      data: {
+        states: states.filter(Boolean).sort((a, b) => a.localeCompare(b)),
+        cities: cities.filter(Boolean).sort((a, b) => a.localeCompare(b)),
+        specializations: combinedSpecs,
+        hospitals,
+        doctorNames,
+        totalVerifiedDoctors
+      }
+    });
+  } catch (error) {
+    console.error("Filter options error:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Failed to load filter options",
+      error: error.message
+    });
+  }
+});
+
+/*
+|--------------------------------------------------------------------------
 | GET Autocomplete Suggestions (Requires Auth)
 | URL: /api/doctors/autocomplete?q=car&type=specialization
 |--------------------------------------------------------------------------
 */
 router.get("/autocomplete", requireAuth, async (req, res) => {
   try {
-    const { q, type } = req.query;
+    const { q, type, state, city } = req.query;
     if (!q || !q.trim() || q.trim().length < 1) {
       return res.json({
         success: true,
-        data: { names: [], specializations: [], hospitals: [], cities: [] }
+        data: { names: [], specializations: [], hospitals: [], cities: [], states: [] }
       });
     }
 
     const searchTerm = q.trim();
-    const regex = new RegExp(searchTerm.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "i");
+    const regex = new RegExp(escapeRegex(searchTerm), "i");
     const baseFilter = { verificationStatus: "verified" };
+
+    if (state && state.trim()) {
+      baseFilter.state = { $regex: escapeRegex(state.trim()), $options: "i" };
+    }
+    if (city && city.trim()) {
+      baseFilter.city = { $regex: escapeRegex(city.trim()), $options: "i" };
+    }
 
     const results = {
       names: [],
       specializations: [],
       hospitals: [],
-      cities: []
+      cities: [],
+      states: []
     };
 
     if (!type || type === "name") {
@@ -98,8 +165,9 @@ router.get("/autocomplete", requireAuth, async (req, res) => {
 
     if (!type || type === "specialization") {
       const dbSpecs = await Doctor.distinct("specialization", { ...baseFilter, specialization: regex });
+      const dbSubSpecs = await Doctor.distinct("subSpecialization", { ...baseFilter, subSpecialization: regex });
       const matchingMaster = MASTER_SPECIALIZATIONS.filter((s) => regex.test(s));
-      const combined = Array.from(new Set([...dbSpecs.filter(Boolean), ...matchingMaster]));
+      const combined = Array.from(new Set([...dbSpecs.filter(Boolean), ...dbSubSpecs.filter(Boolean), ...matchingMaster]));
       results.specializations = combined.slice(0, 8);
     }
 
@@ -111,6 +179,11 @@ router.get("/autocomplete", requireAuth, async (req, res) => {
     if (!type || type === "city") {
       const cities = await Doctor.distinct("city", { ...baseFilter, city: regex });
       results.cities = cities.filter(Boolean).slice(0, 8);
+    }
+
+    if (!type || type === "state") {
+      const states = await Doctor.distinct("state", { ...baseFilter, state: regex });
+      results.states = states.filter(Boolean).slice(0, 8);
     }
 
     return res.json({
@@ -145,6 +218,7 @@ router.get("/nearby/search", requireAuth, async (req, res) => {
       availableToday,
       availableThisWeek,
       sort,
+      state,
       specialization,
       name,
       hospital,
@@ -191,20 +265,29 @@ router.get("/nearby/search", requireAuth, async (req, res) => {
       "location.coordinates": { $exists: true, $ne: [] }
     };
 
-    if (specialization && specialization.trim()) {
-      geoNearQuery.specialization = { $regex: specialization.trim(), $options: "i" };
-    }
-
-    if (name && name.trim()) {
-      geoNearQuery.name = { $regex: name.trim(), $options: "i" };
-    }
-
-    if (hospital && hospital.trim()) {
-      geoNearQuery.hospitalOrClinic = { $regex: hospital.trim(), $options: "i" };
+    if (state && state.trim()) {
+      geoNearQuery.state = { $regex: escapeRegex(state.trim()), $options: "i" };
     }
 
     if (city && city.trim()) {
-      geoNearQuery.city = { $regex: city.trim(), $options: "i" };
+      geoNearQuery.city = { $regex: escapeRegex(city.trim()), $options: "i" };
+    }
+
+    if (specialization && specialization.trim()) {
+      const specRegex = { $regex: escapeRegex(specialization.trim()), $options: "i" };
+      geoNearQuery.$or = [
+        { specialization: specRegex },
+        { subSpecialization: specRegex },
+        { qualifications: specRegex }
+      ];
+    }
+
+    if (name && name.trim()) {
+      geoNearQuery.name = { $regex: escapeRegex(name.trim()), $options: "i" };
+    }
+
+    if (hospital && hospital.trim()) {
+      geoNearQuery.hospitalOrClinic = { $regex: escapeRegex(hospital.trim()), $options: "i" };
     }
 
     if (minFee || maxFee) {
@@ -350,55 +433,65 @@ router.get("/", requireAuth, async (req, res) => {
       userLng
     } = req.query;
 
-    const filter = {};
+    const conditions = [];
 
     // Verified doctors policy
     if (verifiedOnly === "false" && req.user && req.user.role === "admin") {
       // Admin can see unverified
     } else {
-      filter.verificationStatus = "verified";
+      conditions.push({ verificationStatus: "verified" });
     }
 
     if (state && state.trim()) {
-      filter.state = { $regex: state.trim(), $options: "i" };
+      conditions.push({ state: { $regex: escapeRegex(state.trim()), $options: "i" } });
     }
 
     if (city && city.trim()) {
-      filter.city = { $regex: city.trim(), $options: "i" };
+      conditions.push({ city: { $regex: escapeRegex(city.trim()), $options: "i" } });
     }
 
     if (specialization && specialization.trim()) {
-      filter.specialization = { $regex: specialization.trim(), $options: "i" };
+      const specRegex = { $regex: escapeRegex(specialization.trim()), $options: "i" };
+      conditions.push({
+        $or: [
+          { specialization: specRegex },
+          { subSpecialization: specRegex },
+          { qualifications: specRegex }
+        ]
+      });
     }
 
     if (name && name.trim()) {
-      filter.name = { $regex: name.trim(), $options: "i" };
+      conditions.push({ name: { $regex: escapeRegex(name.trim()), $options: "i" } });
     }
 
     if (hospital && hospital.trim()) {
-      filter.hospitalOrClinic = { $regex: hospital.trim(), $options: "i" };
+      conditions.push({ hospitalOrClinic: { $regex: escapeRegex(hospital.trim()), $options: "i" } });
     }
 
     if (minFee || maxFee) {
-      filter.consultationFee = {};
+      const feeFilter = {};
       if (minFee && !isNaN(Number(minFee))) {
-        filter.consultationFee.$gte = Number(minFee);
+        feeFilter.$gte = Number(minFee);
       }
       if (maxFee && !isNaN(Number(maxFee))) {
-        filter.consultationFee.$lte = Number(maxFee);
+        feeFilter.$lte = Number(maxFee);
       }
+      conditions.push({ consultationFee: feeFilter });
     }
 
     if (rating && !isNaN(Number(rating))) {
-      filter.averageRating = { $gte: Number(rating) };
+      conditions.push({ averageRating: { $gte: Number(rating) } });
     }
 
     if (availableToday === "true") {
       const todayDay = DAYS_OF_WEEK[new Date().getDay()];
-      filter.availableDays = todayDay;
+      conditions.push({ availableDays: todayDay });
     } else if (availableThisWeek === "true") {
-      filter["availableDays.0"] = { $exists: true };
+      conditions.push({ "availableDays.0": { $exists: true } });
     }
+
+    const filter = conditions.length > 0 ? { $and: conditions } : {};
 
     let sortOptions = { name: 1 };
     if (sort === "fee_asc") {
