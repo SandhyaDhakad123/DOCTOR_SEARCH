@@ -255,7 +255,7 @@ into a single platform.
 - Improved AI health assistance
 - Mobile application
 - Advanced doctor recommendation system
-- 
+  
 👩‍💻 Developer
 Sandhya Dhakad
 B.Tech CSE (AI & ML)
