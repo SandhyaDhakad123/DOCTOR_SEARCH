@@ -26,92 +26,29 @@ const app = express();
 |--------------------------------------------------------------------------
 */
 
-const allowedOrigins = [
-  "https://doctorsearch-frontend.vercel.app",
-  "http://localhost:3000",
-  "http://127.0.0.1:3000",
-  "http://localhost:5001",
-  "http://127.0.0.1:5001",
-  "http://localhost:5173",
-  "http://127.0.0.1:5173"
-];
+app.use(
+    cors({
+        origin: true,
+        credentials: true,
+        methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+        allowedHeaders: [
+            "Origin",
+            "X-Requested-With",
+            "Content-Type",
+            "Accept",
+            "Authorization"
+        ],
+        exposedHeaders: ["Authorization"],
+        optionsSuccessStatus: 204,
+        maxAge: 86400
+    })
+);
 
-// Allow additional frontend URLs through environment variable
-if (process.env.FRONTEND_URL) {
-  process.env.FRONTEND_URL.split(",").forEach((url) => {
-    const cleaned = url.trim().replace(/\/$/, "");
-
-    if (cleaned && !allowedOrigins.includes(cleaned)) {
-      allowedOrigins.push(cleaned);
-    }
-  });
-}
-
-const corsOptions = {
-  origin: function (origin, callback) {
-    // Allow requests without an Origin header
-    // (Postman, server-to-server requests, etc.)
-    if (!origin) {
-      return callback(null, true);
-    }
-
-    const normalizedOrigin = origin.trim().replace(/\/$/, "");
-
-    // Exact allowed origins
-    if (allowedOrigins.includes(normalizedOrigin)) {
-      return callback(null, true);
-    }
-
-    // Allow Vercel deployments for DoctorFinder
-    if (
-      /^https:\/\/doctorsearch-frontend[a-zA-Z0-9-]*\.vercel\.app$/.test(
-        normalizedOrigin
-      )
-    ) {
-      return callback(null, true);
-    }
-
-    // Allow localhost / 127.0.0.1 during development
-    if (
-      /^https?:\/\/localhost(:\d+)?$/.test(normalizedOrigin) ||
-      /^https?:\/\/127\.0\.0\.1(:\d+)?$/.test(normalizedOrigin)
-    ) {
-      return callback(null, true);
-    }
-
-    return callback(
-      new Error(`CORS blocked for origin: ${normalizedOrigin}`)
-    );
-  },
-
-  credentials: true,
-
-  methods: [
-    "GET",
-    "POST",
-    "PUT",
-    "PATCH",
-    "DELETE",
-    "OPTIONS"
-  ],
-
-  allowedHeaders: [
-    "Origin",
-    "X-Requested-With",
-    "Content-Type",
-    "Accept",
-    "Authorization"
-  ],
-
-  exposedHeaders: ["Authorization"],
-
-  optionsSuccessStatus: 204,
-
-  maxAge: 86400
-};
-
-// CORS middleware
-app.use(cors(corsOptions));
+/*
+|--------------------------------------------------------------------------
+| Body Parser
+|--------------------------------------------------------------------------
+*/
 
 app.use(express.json());
 
@@ -130,13 +67,13 @@ const PORT = process.env.PORT || 5001;
 */
 
 if (!process.env.MONGO_URI) {
-  console.error("MONGO_URI is required in backend/.env");
-  process.exit(1);
+    console.error("MONGO_URI is required in backend/.env");
+    process.exit(1);
 }
 
 if (!process.env.JWT_SECRET) {
-  console.error("JWT_SECRET is required in backend/.env");
-  process.exit(1);
+    console.error("JWT_SECRET is required in backend/.env");
+    process.exit(1);
 }
 
 /*
@@ -161,10 +98,10 @@ app.use("/api/health-wellness", healthRoutes);
 */
 
 app.get("/api/test-nearby", (req, res) => {
-  res.json({
-    success: true,
-    message: "Nearby API connection is working"
-  });
+    res.json({
+        success: true,
+        message: "Nearby API connection is working"
+    });
 });
 
 /*
@@ -174,10 +111,10 @@ app.get("/api/test-nearby", (req, res) => {
 */
 
 app.get("/api/health", (req, res) => {
-  res.json({
-    status: "Server is running",
-    timestamp: new Date()
-  });
+    res.json({
+        status: "Server is running",
+        timestamp: new Date()
+    });
 });
 
 /*
@@ -187,10 +124,10 @@ app.get("/api/health", (req, res) => {
 */
 
 app.use((req, res) => {
-  res.status(404).json({
-    success: false,
-    message: "Endpoint not found"
-  });
+    res.status(404).json({
+        success: false,
+        message: "Endpoint not found"
+    });
 });
 
 /*
@@ -200,39 +137,39 @@ app.use((req, res) => {
 */
 
 mongoose
-  .connect(process.env.MONGO_URI)
-  .then(async () => {
-    console.log("MongoDB connected successfully!");
+    .connect(process.env.MONGO_URI)
+    .then(async () => {
+        console.log("MongoDB connected successfully!");
 
-    /*
-    |--------------------------------------------------------------------------
-    | Create / Synchronize Database Indexes
-    |--------------------------------------------------------------------------
-    */
+        /*
+        |--------------------------------------------------------------------------
+        | Synchronize Database Indexes
+        |--------------------------------------------------------------------------
+        */
 
-    await Promise.all([
-      Doctor.syncIndexes(),
-      Favorite.syncIndexes(),
-      Review.syncIndexes(),
-      Appointment.syncIndexes()
-    ]);
+        await Promise.all([
+            Doctor.syncIndexes(),
+            Favorite.syncIndexes(),
+            Review.syncIndexes(),
+            Appointment.syncIndexes()
+        ]);
 
-    console.log("Database indexes synchronized successfully!");
+        console.log("Database indexes synchronized successfully!");
 
-    /*
-    |--------------------------------------------------------------------------
-    | Start Server
-    |--------------------------------------------------------------------------
-    */
+        /*
+        |--------------------------------------------------------------------------
+        | Start Server
+        |--------------------------------------------------------------------------
+        */
 
-    app.listen(PORT, "0.0.0.0", () => {
-      console.log(`Server running on port ${PORT}`);
-      console.log(`API available at /api/`);
+        app.listen(PORT, "0.0.0.0", () => {
+            console.log(`Server running on port ${PORT}`);
+            console.log(`API available at /api/`);
+        });
+    })
+    .catch((error) => {
+        console.error("MongoDB connection failed:");
+        console.error(error.message);
+
+        process.exit(1);
     });
-  })
-  .catch((error) => {
-    console.error("MongoDB connection failed:");
-    console.error(error.message);
-
-    process.exit(1);
-  });
