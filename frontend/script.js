@@ -1,5 +1,5 @@
 console.log("DOCTORFINDER MASTER UPGRADE SCRIPT LOADED");
-const API_BASE_URL = "https://doctor-search-t5sm.onrender.com/api";
+const API_BASE_URL = "https://doctor-search-t5rm.onrender.com/api";
 
 let currentDoctors = [];
 let selectedDoctorId = null;
